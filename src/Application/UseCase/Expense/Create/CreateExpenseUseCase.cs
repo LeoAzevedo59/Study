@@ -17,21 +17,7 @@ public class CreateExpenseUseCase
 
     private void Validate(RequestCreateExpenseJson request)
     {
-        var titleIsEmpty = string.IsNullOrWhiteSpace(request.Title);
-        
-        if(titleIsEmpty)
-            throw new ArgumentException("Title is required.");
-        
-        if(request.Amount <= decimal.Zero)
-            throw new ArgumentException("Amount is required.");
-
-        var result = DateTime.Compare(request.MovementAt, DateTime.UtcNow);
-        if(result > 0)
-            throw new ArgumentException("MovementAt must be greater than date.");
-
-        var paymentTypeIsValid = Enum.IsDefined(typeof(PaymentType), request.PaymentType);
-        
-        if(!paymentTypeIsValid)
-            throw new ArgumentException("PaymentType is not valid.");
+        CreateExpenseValidator validator = new();
+        var result = validator.Validate(request);
     }
 }
