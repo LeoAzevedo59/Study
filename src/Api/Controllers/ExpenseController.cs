@@ -1,5 +1,7 @@
+using System.Net;
 using Application.UseCase.Expense.Create;
 using Communication.Requests.Expense;
+using Communication.Responses.ResponseError;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -18,11 +20,29 @@ public class ExpenseController : ControllerBase
         }
         catch (ArgumentException e)
         {
-            return BadRequest(e.Message);
+            ResponseErrorJson responseError = new()
+            {
+                Name = nameof(ArgumentException),
+                Message = e.Message,
+                Action = "Valide o(s) campo(s).",
+                StatusCode = HttpStatusCode.BadRequest
+            };
+            
+            return BadRequest(responseError);
         }
         catch (Exception e)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, "Unknown error occured");
+            Console.WriteLine(e.Message);
+
+            ResponseErrorJson responseError = new()
+            {
+                Name = nameof(Exception),
+                Message = "Unknown error occured",
+                Action = "Contate o suporte.",
+                StatusCode = HttpStatusCode.InternalServerError
+            };
+            
+            return StatusCode(StatusCodes.Status500InternalServerError, responseError);
         }
     }
 }
