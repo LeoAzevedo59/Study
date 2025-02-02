@@ -6,14 +6,30 @@ namespace Communication.Responses.ResponseError;
 public class ResponseErrorJson
 {
     [JsonPropertyName("name")]
-    public required string Name { get; set; }
+    public string Name { get; set; }
     
     [JsonPropertyName("message")]
-    public required string Message { get; set; }
+    public List<string> Message { get; set; }
     
     [JsonPropertyName("action")]
-    public required string Action { get; set; }
+    public string Action { get; set; }
 
     [JsonPropertyName("status_code")]
-    public required HttpStatusCode StatusCode { get; set; }
+    public HttpStatusCode StatusCode { get; set; }
+
+    public ResponseErrorJson(string name, string message, string action, HttpStatusCode statusCode)
+    {
+        Name = name;
+        Message = [message];
+        Action = action;
+        StatusCode = statusCode;
+    }
+
+    public ResponseErrorJson(string name, List<string> message, string action, HttpStatusCode statusCode)
+    {
+        Name = name;
+        Message = message;
+        Action = action;
+        StatusCode = statusCode;
+    }
 }

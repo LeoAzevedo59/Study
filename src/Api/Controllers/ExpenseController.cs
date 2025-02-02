@@ -2,6 +2,7 @@ using System.Net;
 using Application.UseCase.Expense.Create;
 using Communication.Requests.Expense;
 using Communication.Responses.ResponseError;
+using Exception.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -18,29 +19,27 @@ public class ExpenseController : ControllerBase
             var useCase = new CreateExpenseUseCase();
             return Ok(useCase.Execute(request));
         }
-        catch (ArgumentException e)
+        catch (ErrorOnValidationException e)
         {
-            ResponseErrorJson responseError = new()
-            {
-                Name = nameof(ArgumentException),
-                Message = e.Message,
-                Action = "Valide o(s) campo(s).",
-                StatusCode = HttpStatusCode.BadRequest
-            };
+            ResponseErrorJson responseError = new(
+                name: nameof(ArgumentException),
+                message: e.ErrorMessages,
+                action: "Valide o(s) campo(s).",
+                statusCode: HttpStatusCode.BadRequest
+            );
             
             return BadRequest(responseError);
         }
-        catch (Exception e)
+        catch (System.Exception e)
         {
             Console.WriteLine(e.Message);
 
-            ResponseErrorJson responseError = new()
-            {
-                Name = nameof(Exception),
-                Message = "Unknown error occured",
-                Action = "Contate o suporte.",
-                StatusCode = HttpStatusCode.InternalServerError
-            };
+            ResponseErrorJson responseError = new(
+                name: nameof(Exception),
+                message: "Unknown error occured",
+                action: "Contate o suporte.",
+                statusCode: HttpStatusCode.InternalServerError
+            );
             
             return StatusCode(StatusCodes.Status500InternalServerError, responseError);
         }
