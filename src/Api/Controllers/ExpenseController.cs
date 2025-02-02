@@ -1,3 +1,4 @@
+using Application.UseCase.Expense.Create;
 using Communication.Requests.Expense;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,8 @@ public class ExpenseController : ControllerBase
     [HttpPost]
     public IActionResult Register([FromBody] RequestCreateExpenseJson request)
     {
-        return Ok(request);
+        var useCase = new CreateExpenseUseCase();
+        
+        return Ok(useCase.Execute(request));
     }
 }
