@@ -2,8 +2,8 @@ namespace Communication.Enums;
 
 public enum PaymentType
 {
-    Cash = 0,
-    CreditCard = 1,
-    DebitCard = 2,
-    ElectronicTransfer = 3,
+    Cash = 1,
+    CreditCard = 2,
+    DebitCard = 3,
+    ElectronicTransfer = 4,
 }
