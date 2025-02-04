@@ -1,4 +1,5 @@
 using Application.UseCase.Expense.Create;
+using CommonTestUtilities.Requests.Expanse;
 using Communication.Enums;
 using Communication.Requests.Expense;
 
@@ -6,21 +7,13 @@ namespace Validators.Tests.Expense.Create;
 
 public class CreateExpenseValidatorTests
 {
-    // nome do restulado esperado
     [Fact]
-    public void Success()
+    public void Success()   // nome do restulado esperado
     {
      // Arrange : Preparação
      CreateExpenseValidator validator = new();
-     RequestCreateExpenseJson request = new()
-     {
-        Title = "title",
-        Description = "description",
-        Amount = 1,
-        MovementAt = DateTime.Now,
-        PaymentType = PaymentType.Cash,
-     };
-
+     var request = new RequestCreateExpenseJsonBuilder().Build();
+     
      // Act : Ação 
      var result = validator.Validate(request);
 
