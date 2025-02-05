@@ -5,7 +5,7 @@ namespace CommonTestUtilities.Requests.Expanse;
 
 public class RequestCreateExpenseJsonBuilder
 {
-    public RequestCreateExpenseJson Build()
+    public static RequestCreateExpenseJson Build()
     {
         
         RequestCreateExpenseJson request = new()
