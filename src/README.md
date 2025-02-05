@@ -60,6 +60,23 @@ dotnet watch run --project src/Api
 
 - [Boolean](#boolean)
 
+## Theory
+Caso você queira realizar um teste de unidade, porem alterando em vários valores você pode utilizar ``theory``, para que 
+seja realizado um laço de repitção entre vários valores pre-setado por você.
+
+**Exemplo**
+```bash
+  [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public void Error_Amount_Invalid(decimal amount)
+```
+
+O teste será realizado com o valor da váriavel **decimal amount**, 0, -1. 
+- Dentro da função será realizada o teste individualmente de cada valor;
+- Não será na ordem que você declarou, por exemplo o teste pode iniciar pelo valor -1 e depois 0;
+- Não conseguirá validar os dois valores ``InlineDate`` ao mesmo tempo;
+
 ## Boolean
 
 Espero que seja **True**
@@ -71,7 +88,6 @@ Espero que seja **False**
 ```bash
   Assert.False(result.IsValid);
 ```
-
 
 
 
