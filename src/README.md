@@ -1,45 +1,76 @@
-# [notiify.me](https://www.notiify.me/)
+# [Notiify.me](https://www.notiify.me/)
 
-### Dependências globais
+## Dependências globais
 
 Você precisa ter a SDK instalada em seu computador.
 
 - SDK 8.0.405
 
-listar todas Sdks disponível em sua máquina:
+Listar todas Sdks disponível em sua máquina:
 
-``dotnet --list-sdks``
+```bash
+dotnet --list-sdks
+```
+
+Alterar SDK:
+
+```bash
+dotnet new globaljson --sdk-version 6.0.412
+```
 
 
-alterar SDK:
-
-``dotnet new globaljson --sdk-version 6.0.412``
-
-### Rodar tests unitários
+## Rodar tests unitários
 
 Rodando todos testes do projeto
-
-``dotnet test``
+```bash
+dotnet test
+```
 
 Rodando testes com watch (Auto Reload)
 
 1. Entre no projeto do teste em especifico
-``cd tests/Validators.Tests/``
+```bash
+cd tests/Validators.Tests/
+```
 2. Comando para rodar os testes
-``dotnet watch test``
+```bash
+dotnet watch test
+```
 
 Sempre que salvar o arquivo de teste em questão, o mesmo será rodado mostrando se passou ou se tem alguma falha.
 
 
-### Rodar projeto
+## Rodar projeto
 
 Usando dotnet run
-
-``dotnet run --project src/Api``
+```bash
+dotnet run --project src/Api
+```
 
 Usando dotnet watch run (Auto Reload)
+```bash
+dotnet watch run --project src/Api
+```
 
-``dotnet watch run --project src/Api``
+## Documentação para testes
+
+- fazer documentação com base [fluent Assertions](https://fluentassertions.com/introduction)
+- utilização do README.md como base [Tab News](https://raw.githubusercontent.com/filipedeschamps/tabnews.com.br/refs/heads/main/README.md)
+
+
+- [Boolean](#boolean)
+
+## Boolean
+
+Espero que seja **True**
+```bash
+  Assert.True(result.IsValid);
+```
+
+Espero que seja **False**
+```bash
+  Assert.False(result.IsValid);
+```
 
 
 
