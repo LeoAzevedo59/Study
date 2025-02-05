@@ -21,12 +21,15 @@ public class CreateExpenseValidatorTests
      Assert.True(result.IsValid);
     }
 
-    [Fact]
-    public void Error_Title_Empty_Invalid()
+    [Theory]
+    [InlineData(null)]
+    [InlineData("  ")]
+    [InlineData("")]
+    public void Error_Title_Invalid(string? title)
     {
         CreateExpenseValidator validator = new();
         var request = RequestCreateExpenseJsonBuilder.Build();
-        request.Title = string.Empty;
+        request.Title = title;
         
         var result = validator.Validate(request);
         
@@ -49,20 +52,6 @@ public class CreateExpenseValidatorTests
         Assert.Single(result.Errors);
         
     }
-    
-    [Fact]
-    public void Error_Title_WiteSpace_Invalid()
-    {
-        CreateExpenseValidator validator = new();
-        var request = RequestCreateExpenseJsonBuilder.Build();
-        request.Title = "   ";
-        
-        var result = validator.Validate(request);
-        
-        Assert.False(result.IsValid);
-        Assert.Single(result.Errors);
-        Assert.Equal("Título não é válido.", result.Errors[0].ErrorMessage);
-    } 
     
     [Fact]
     public void Errors_Multiple_Props_Invalid()
