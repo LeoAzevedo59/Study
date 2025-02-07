@@ -25,7 +25,7 @@ public class CreateExpenseValidatorTests
     [InlineData(null)]
     [InlineData("  ")]
     [InlineData("")]
-    public void Error_Title_Invalid(string? title)
+    public void Error_Title_Invalid(string title)
     {
         CreateExpenseValidator validator = new();
         var request = RequestCreateExpenseJsonBuilder.Build();

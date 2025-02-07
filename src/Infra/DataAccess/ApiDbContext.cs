@@ -11,7 +11,8 @@ public class ApiDbContext : DbContext
     {
         if (optionsBuilder.IsConfigured) return;
         
-        var connectionString = "Host=localhost;Database=SeuBancoDeDados;Username=SeuUsuario;Password=SuaSenha";
+        var connectionString = "Host=ep-round-unit-a8jb25zs-pooler.eastus2.azure.neon.tech;Database=neondb;Username=neondb_owner;Password=npg_yamN7UBSc9CE";
+        
         
         optionsBuilder.UseNpgsql(connectionString);
     }
