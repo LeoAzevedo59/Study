@@ -4,7 +4,6 @@ using Domain.Enums;
 
 namespace Domain.Entities;
 
-[Table("expenses")]
 public class Expense
 {
     [JsonPropertyName("id")]

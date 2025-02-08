@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -10,6 +10,7 @@
       <ProjectReference Include="..\Communication\Communication.csproj" />
       <ProjectReference Include="..\Domain\Domain.csproj" />
       <ProjectReference Include="..\Exception\Exception.csproj" />
+      <ProjectReference Include="..\Infra\Infra.csproj" />
     </ItemGroup>
 
     <ItemGroup>
