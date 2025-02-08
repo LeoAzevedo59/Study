@@ -9,12 +9,11 @@ namespace Api.Controllers;
 
 [Route("api/expenses")]
 [ApiController]
-public class ExpenseController : ControllerBase
+public class ExpenseController(ICreateExpenseUseCase createExpenseUseCase) : ControllerBase
 {
     [HttpPost]
     public IActionResult Register([FromBody] RequestCreateExpenseJson request)
     {
-        var useCase = new CreateExpenseUseCase();
-        return Created(string.Empty, useCase.Execute(request));
+        return Created(string.Empty, createExpenseUseCase.Execute(request));
     }
 }

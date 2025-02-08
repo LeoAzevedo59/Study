@@ -1,4 +1,5 @@
 using Api.Filters;
+using Application;
 using Infra;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
 
 builder.Services.AddInfra();
+builder.Services.AddApplication();
 
 var app = builder.Build();
 

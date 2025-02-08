@@ -1,7 +1,7 @@
-using Domain.Entities;
+using ExpenseEntity = Domain.Entities.Expense;
 namespace Domain.Repositories.Expenses;
 
 public interface IExpenseRepository
 {
-    void AddExpense(Expense expense);
+    void Add(ExpenseEntity expense);
 }

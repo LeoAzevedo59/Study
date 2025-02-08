@@ -6,7 +6,7 @@ namespace Infra.Repositories;
 
 internal class ExpensesRepository : IExpenseRepository
 {
-    public void AddExpense(Expense expense)
+    public void Add(Expense expense)
     {
         var dbContext = new ApiDbContext();
         
