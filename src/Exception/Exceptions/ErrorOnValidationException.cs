@@ -1,11 +1,6 @@
 namespace Exception.Exceptions;
 
-public class ErrorOnValidationException : CustomException
+public class ErrorOnValidationException(List<string> errorMessages) : CustomException
 {
-    public List<string> ErrorMessages { get; set; }
-
-    public ErrorOnValidationException(List<string> errorMessages)
-    {
-        ErrorMessages = errorMessages;
-    }
+    public List<string> ErrorMessages { get; set; } = errorMessages;
 }

@@ -23,15 +23,28 @@ public class ExceptionFilter : IExceptionFilter
 
     private void HandleProjectException(ExceptionContext context)
     {
-        if (context.Exception is ErrorOnValidationException)
+        if (context.Exception is ErrorOnValidationException errorOnValidationException)
         {
             int statusCode = StatusCodes.Status400BadRequest;
-            var exception = (ErrorOnValidationException)context.Exception;
+
+            ResponseErrorJson responseError = new(
+                name: nameof(ErrorOnValidationException),
+                message: errorOnValidationException.ErrorMessages,
+                action: "Valide os campos obrigatórios.",
+                statusCode: (HttpStatusCode)statusCode
+            );
+            
+            context.HttpContext.Response.StatusCode = statusCode;
+            context.Result = new BadRequestObjectResult(responseError);
+        }
+        else if (context.Exception is EnvironmentVariablesEmpty environmentVariablesEmpty)
+        {
+            int statusCode = StatusCodes.Status500InternalServerError;
             
             ResponseErrorJson responseError = new(
                 name: nameof(ErrorOnValidationException),
-                message: exception.ErrorMessages,
-                action: "Valide os campos obrigatórios.",
+                message: environmentVariablesEmpty.ErrorMessage,
+                action: "Entre em contato com o suporte.",
                 statusCode: (HttpStatusCode)statusCode
             );
             
