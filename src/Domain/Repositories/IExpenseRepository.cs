@@ -1,7 +1,10 @@
-using ExpenseEntity = Domain.Entities.Expense;
+using Domain.Entities;
+
 namespace Domain.Repositories;
 
 public interface IExpenseRepository
 {
-    Task Add(ExpenseEntity expense);
+    Task Add(Expense expense);
+    Task<List<Expense>> Get();
+    Task<Expense?> GetById(Guid expenseId);
 }

@@ -25,5 +25,7 @@ public class AutoMapping : Profile
     private void EntityToRequest()
     {
         CreateMap<Expense, ResponseCreateExpenseJson>();
+        CreateMap<Expense, ResponseReadExpensesJson>();
+        CreateMap<Expense, ResponseReadExpenseJson>();
     }
 }
