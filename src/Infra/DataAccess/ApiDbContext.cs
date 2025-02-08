@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infra.DataAccess;
 
-public class ApiDbContext : DbContext
+internal class ApiDbContext : DbContext
 {
     public DbSet<Expense> Expenses { get; set; }
 
