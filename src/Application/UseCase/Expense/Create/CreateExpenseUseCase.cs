@@ -2,7 +2,6 @@ using Communication.Requests.Expense;
 using Communication.Responses.Expense;
 using Domain.Enums;
 using Domain.Repositories;
-using Domain.Repositories.Expenses;
 using Exception.Exceptions;
 using ExpenseEntity = Domain.Entities.Expense;
 
@@ -10,7 +9,7 @@ namespace Application.UseCase.Expense.Create;
 
 public class CreateExpenseUseCase(IExpenseRepository expenseRepository, IUnityOfWork unityOfWork) : ICreateExpenseUseCase
 {
-    public ResponseCreateExpenseJson Execute(RequestCreateExpenseJson request)
+    public async Task<ResponseCreateExpenseJson> Execute(RequestCreateExpenseJson request)
     {
         Validate(request);
 
@@ -23,8 +22,8 @@ public class CreateExpenseUseCase(IExpenseRepository expenseRepository, IUnityOf
             Payment = (PaymentType)request.PaymentType
         };
         
-        expenseRepository.Add(entity);
-        unityOfWork.Commit();
+        await expenseRepository.Add(entity);
+        await  unityOfWork.Commit();
         
         return new()
         {

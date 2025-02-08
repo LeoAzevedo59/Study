@@ -4,5 +4,5 @@ namespace Infra.DataAccess;
 
 internal class UnityOfWork(ApiDbContext dbContext) : IUnityOfWork
 {
-    public void Commit() => dbContext.SaveChanges();
+    public async Task Commit() => await dbContext.SaveChangesAsync();
 }

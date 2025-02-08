@@ -1,5 +1,4 @@
 using Domain.Repositories;
-using Domain.Repositories.Expenses;
 using Exception.Exceptions;
 using Infra.DataAccess;
 using Infra.Repositories;
