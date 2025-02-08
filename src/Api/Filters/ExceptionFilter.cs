@@ -42,14 +42,28 @@ public class ExceptionFilter : IExceptionFilter
             int statusCode = StatusCodes.Status500InternalServerError;
             
             ResponseErrorJson responseError = new(
-                name: nameof(ErrorOnValidationException),
-                message: environmentVariablesEmpty.ErrorMessage,
+                name: nameof(EnvironmentVariablesEmpty),
+                message: environmentVariablesEmpty.Message,
                 action: "Entre em contato com o suporte.",
                 statusCode: (HttpStatusCode)statusCode
             );
             
             context.HttpContext.Response.StatusCode = statusCode;
             context.Result = new BadRequestObjectResult(responseError);
+        }
+        else if (context.Exception is NotFoundException notFoundException)
+        {
+            int statusCode = StatusCodes.Status404NotFound;
+            
+            ResponseErrorJson responseError = new(
+                name: nameof(NotFoundException),
+                message: notFoundException.Message,
+                action: "Valide os campos obrigatórios.",
+                statusCode: (HttpStatusCode)statusCode
+            );
+            
+            context.HttpContext.Response.StatusCode = statusCode;
+            context.Result = new NotFoundObjectResult(responseError);
         }
         else
         {

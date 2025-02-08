@@ -1,6 +1,7 @@
 using AutoMapper;
 using Communication.Responses.Expense;
 using Domain.Repositories;
+using Exception.Exceptions;
 
 namespace Application.useCase.Expense.ReadById;
 
@@ -9,12 +10,12 @@ public class ReadExpenseByIdUseCase(
     IExpenseRepository repository
     ) : IReadExpenseByIdUseCase
 {
-    public async Task<ResponseReadExpenseJson?> Execute(Guid expenseId)
+    public async Task<ResponseReadExpenseJson> Execute(Guid expenseId)
     {
         var result = await repository.GetById(expenseId);
 
         if (result is null)
-            return null;
+            throw new NotFoundException("Despesa não encontrada.");
                 
         var response = mapper.Map<ResponseReadExpenseJson>(result);
 
