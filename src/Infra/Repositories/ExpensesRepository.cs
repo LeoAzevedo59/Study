@@ -4,12 +4,10 @@ using Infra.DataAccess;
 
 namespace Infra.Repositories;
 
-internal class ExpensesRepository : IExpenseRepository
+internal class ExpensesRepository(ApiDbContext dbContext) : IExpenseRepository
 {
     public void Add(Expense expense)
     {
-        var dbContext = new ApiDbContext();
-        
         dbContext.Expenses.Add(expense);
         dbContext.SaveChanges();
     }
