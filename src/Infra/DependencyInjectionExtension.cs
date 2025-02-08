@@ -1,3 +1,4 @@
+using Domain.Repositories;
 using Domain.Repositories.Expenses;
 using Exception.Exceptions;
 using Infra.DataAccess;
@@ -18,6 +19,7 @@ public static class DependencyInjectionExtension
     private static void AddRepositories(IServiceCollection services)
     {
         services.AddScoped<IExpenseRepository, ExpensesRepository>();
+        services.AddScoped<IUnityOfWork, UnityOfWork>();
     } 
     
     private static void AddDbContext(IServiceCollection services)
