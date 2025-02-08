@@ -1,5 +1,7 @@
+using Communication.Enums;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infra.DataAccess;
 
@@ -15,5 +17,12 @@ public class ApiDbContext : DbContext
         
         
         optionsBuilder.UseNpgsql(connectionString);
+    }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Expense>()
+            .Property(u => u.Payment)
+            .HasConversion<string>();
     }
 }

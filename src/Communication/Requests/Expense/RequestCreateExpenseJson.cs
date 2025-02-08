@@ -17,6 +17,5 @@ public class RequestCreateExpenseJson
     [JsonPropertyName("movement_at")]
     public DateTime MovementAt { get; set; }
     
-    [JsonPropertyName("payment_type")]
     public PaymentType PaymentType { get; set; }
 }
