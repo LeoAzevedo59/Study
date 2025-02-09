@@ -1,6 +1,5 @@
 using Domain.Repositories;
 using Domain.Repositories.Expenses;
-using Exception.Exceptions;
 using Infra.DataAccess;
 using Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -28,8 +27,7 @@ public static class DependencyInjectionExtension
         string? connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
         if (string.IsNullOrEmpty(connectionString))
-            throw new EnvironmentVariablesEmpty("Variável de ambiente: `CONNECTION_STRING` não configurada.",
-                "Valide a variável de ambiente: `CONNECTION_STRING`.");
+            throw new ArgumentException("Variável de ambiente: `CONNECTION_STRING` não configurada.");
         
         services.AddDbContext<ApiDbContext>(config => config.UseNpgsql(connectionString));
     }
