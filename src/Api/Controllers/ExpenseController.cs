@@ -2,6 +2,7 @@ using Application.UseCase.Expense.Create;
 using Application.UseCase.Expense.Delete;
 using Application.useCase.Expense.Read;
 using Application.useCase.Expense.ReadById;
+using Application.UseCase.Expense.Update;
 using Communication.Requests.Expense;
 using Communication.Responses.Expense;
 using Communication.Responses.ResponseError;
@@ -60,4 +61,20 @@ public class ExpenseController() : ControllerBase
          await deleteExpenseUseCase.Execute(id);
          return NoContent();
     }
+
+    [HttpPut]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(
+        [FromServices] IUpdateExpenseUseCase updateExpenseUseCase,
+        [FromRoute] Guid id,
+        [FromBody] RequestUpdateExpenseJson request
+        )
+    {
+        await updateExpenseUseCase.Execute(id, request);
+        return NoContent();
+    }
+    
 }

@@ -10,14 +10,14 @@ public class CreateExpenseValidatorTests
     [Fact]
     public void Success()   // nome do restulado esperado
     {
-     // Arrange : Preparação
+     // Arrange: Preparação
      CreateExpenseValidator validator = new();
      var request = RequestCreateExpenseJsonBuilder.Build();
      
-     // Act : Ação 
+     // Act: Ação 
      var result = validator.Validate(request);
 
-     // Assert : Verificação
+     // Assert: Verificação
      Assert.True(result.IsValid);
     }
 
@@ -63,7 +63,7 @@ public class CreateExpenseValidatorTests
         request.Title = "   ";
         request.Amount = -1;
         request.MovementAt = DateTime.UtcNow.AddDays(1);
-        request.PaymentType = (PaymentType)0;
+        request.PaymentType = (PaymentType)999;
         
         var result = validator.Validate(request);
         int listLenght = result.Errors.Count;

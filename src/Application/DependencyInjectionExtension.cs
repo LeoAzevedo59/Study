@@ -3,6 +3,7 @@ using Application.UseCase.Expense.Create;
 using Application.UseCase.Expense.Delete;
 using Application.useCase.Expense.Read;
 using Application.useCase.Expense.ReadById;
+using Application.UseCase.Expense.Update;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
@@ -26,5 +27,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IReadExpenseUseCase, ReadExpenseUseCase>();
         services.AddScoped<IReadExpenseByIdUseCase, ReadExpenseByIdUseCase>();
         services.AddScoped<IDeleteExpenseUseCase, DeleteExpenseUseCase>();
+        services.AddScoped<IUpdateExpenseUseCase, UpdateExpenseUseCase>();
     }
 }

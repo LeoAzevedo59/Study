@@ -1,11 +1,12 @@
 using Communication.Requests.Expense;
 using FluentValidation;
 
-namespace Application.UseCase.Expense.Create;
+namespace Application.UseCase.Expense.Update;
 
-public class CreateExpenseValidator : AbstractValidator<RequestCreateExpenseJson>
+public class UpdateExpenseValidator : AbstractValidator<RequestUpdateExpenseJson>
 {
-    public CreateExpenseValidator()
+
+    public UpdateExpenseValidator()
     {
         RuleFor(prop => prop.Title)
             .NotEmpty()
@@ -18,9 +19,5 @@ public class CreateExpenseValidator : AbstractValidator<RequestCreateExpenseJson
         RuleFor(prop => prop.MovementAt)
             .LessThanOrEqualTo(DateTime.UtcNow)
             .WithMessage("Data de movimentação deve ser retroativa.");
-
-        RuleFor(prop => prop.PaymentType)
-            .IsInEnum()
-            .WithMessage("Tipo de pagamento não é válido.");
     }
 }

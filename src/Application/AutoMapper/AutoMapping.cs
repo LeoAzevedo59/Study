@@ -20,6 +20,8 @@ public class AutoMapping : Profile
                 dest.Payment, config => 
                 config.MapFrom(source =>
                     source.PaymentType.ToString()));
+
+        CreateMap<RequestUpdateExpenseJson, Expense>();
     }
 
     private void EntityToRequest()

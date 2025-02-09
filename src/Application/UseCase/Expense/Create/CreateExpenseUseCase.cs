@@ -1,3 +1,4 @@
+using AutoMapper;
 using Communication.Requests.Expense;
 using Communication.Responses.Expense;
 using Domain.Enums;
@@ -10,28 +11,21 @@ namespace Application.UseCase.Expense.Create;
 
 public class CreateExpenseUseCase(
     IExpenseWriteOnlyRepository expenseRepository,
+    IMapper mapper,
     IUnityOfWork unityOfWork) : ICreateExpenseUseCase
 {
     public async Task<ResponseCreateExpenseJson> Execute(RequestCreateExpenseJson request)
     {
         Validate(request);
 
-        var entity = new ExpenseEntity()
-        {
-            Title = request.Title,
-            Description = request.Description,
-            Amount = request.Amount,
-            MovementAt = request.MovementAt,
-            Payment = (PaymentType)request.PaymentType
-        };
+        var entity = mapper.Map<ExpenseEntity>(request);
         
         await expenseRepository.Add(entity);
         await  unityOfWork.Commit();
         
-        return new()
-        {
-            Title = entity.Title
-        };
+        var response = mapper.Map<ResponseCreateExpenseJson>(entity);
+
+        return response;
     }
 
     private void Validate(RequestCreateExpenseJson request)

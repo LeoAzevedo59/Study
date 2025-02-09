@@ -6,7 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repositories;
 
-internal class ExpensesRepository(ApiDbContext dbContext) : IExpenseReadOnlyRepository, IExpenseWriteOnlyRepository
+internal class ExpensesRepository(ApiDbContext dbContext) : 
+    IExpenseReadOnlyRepository,
+    IExpenseWriteOnlyRepository,
+    IExpenseUpdateOnlyRepository
 {
     public async Task Add(Expense expense)
     {
@@ -21,7 +24,7 @@ internal class ExpensesRepository(ApiDbContext dbContext) : IExpenseReadOnlyRepo
         return result;
     }
 
-    public async Task<Expense?> GetById(Guid expenseId)
+    async Task<Expense?> IExpenseReadOnlyRepository.GetById(Guid expenseId)
     {
         var result = await dbContext.Expenses
             .AsNoTracking()
@@ -30,6 +33,14 @@ internal class ExpensesRepository(ApiDbContext dbContext) : IExpenseReadOnlyRepo
         return result;
     }
     
+    async Task<Expense?> IExpenseUpdateOnlyRepository.GetById(Guid expenseId)
+    {
+        var result = await dbContext.Expenses
+            .FirstOrDefaultAsync(expense => expense.Id == expenseId);
+
+        return result;
+    }
+
     public async Task<bool> Delete(Guid expenseId)
     {
      var expense = await dbContext.Expenses
@@ -40,5 +51,10 @@ internal class ExpensesRepository(ApiDbContext dbContext) : IExpenseReadOnlyRepo
      dbContext.Expenses.Remove(expense);
         
      return true;
+    }
+
+    public void Update(Expense expense)
+    {
+         dbContext.Update<Expense>(expense);
     }
 }
