@@ -1,12 +1,13 @@
 using AutoMapper;
 using Communication.Responses.Expense;
 using Domain.Repositories;
+using Domain.Repositories.Expenses;
 
 namespace Application.useCase.Expense.Read;
 
 public class ReadExpenseUseCase(
     IMapper mapper,
-    IExpenseRepository expenseRepository
+    IExpenseReadOnlyRepository expenseRepository
     ) : IReadExpenseUseCase
 {
     public async Task<List<ResponseReadExpensesJson>> Execute()

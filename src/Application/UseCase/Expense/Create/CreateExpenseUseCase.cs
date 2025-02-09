@@ -2,12 +2,15 @@ using Communication.Requests.Expense;
 using Communication.Responses.Expense;
 using Domain.Enums;
 using Domain.Repositories;
+using Domain.Repositories.Expenses;
 using Exception.Exceptions;
 using ExpenseEntity = Domain.Entities.Expense;
 
 namespace Application.UseCase.Expense.Create;
 
-public class CreateExpenseUseCase(IExpenseRepository expenseRepository, IUnityOfWork unityOfWork) : ICreateExpenseUseCase
+public class CreateExpenseUseCase(
+    IExpenseWriteOnlyRepository expenseRepository,
+    IUnityOfWork unityOfWork) : ICreateExpenseUseCase
 {
     public async Task<ResponseCreateExpenseJson> Execute(RequestCreateExpenseJson request)
     {
@@ -41,6 +44,6 @@ public class CreateExpenseUseCase(IExpenseRepository expenseRepository, IUnityOf
             .ToList();
 
         if (!result.IsValid)
-            throw new ErrorOnValidationException(errorMessages);
+            throw new ErrorOnValidationException(errorMessages, "Valide os campos obrigatórios.");
     }
 }

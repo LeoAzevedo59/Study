@@ -23,59 +23,17 @@ public class ExceptionFilter : IExceptionFilter
 
     private void HandleProjectException(ExceptionContext context)
     {
-        if (context.Exception is ErrorOnValidationException errorOnValidationException)
-        {
-            int statusCode = StatusCodes.Status400BadRequest;
+        var customException = (CustomException)context.Exception;
 
-            ResponseErrorJson responseError = new(
-                name: nameof(ErrorOnValidationException),
-                message: errorOnValidationException.ErrorMessages,
-                action: "Valide os campos obrigatórios.",
-                statusCode: (HttpStatusCode)statusCode
-            );
-            
-            context.HttpContext.Response.StatusCode = statusCode;
-            context.Result = new BadRequestObjectResult(responseError);
-        }
-        else if (context.Exception is EnvironmentVariablesEmpty environmentVariablesEmpty)
-        {
-            int statusCode = StatusCodes.Status500InternalServerError;
-            
-            ResponseErrorJson responseError = new(
-                name: nameof(EnvironmentVariablesEmpty),
-                message: environmentVariablesEmpty.Message,
-                action: "Entre em contato com o suporte.",
-                statusCode: (HttpStatusCode)statusCode
-            );
-            
-            context.HttpContext.Response.StatusCode = statusCode;
-            context.Result = new BadRequestObjectResult(responseError);
-        }
-        else if (context.Exception is NotFoundException notFoundException)
-        {
-            int statusCode = StatusCodes.Status404NotFound;
-            
-            ResponseErrorJson responseError = new(
-                name: nameof(NotFoundException),
-                message: notFoundException.Message,
-                action: "Valide os campos obrigatórios.",
-                statusCode: (HttpStatusCode)statusCode
-            );
-            
-            context.HttpContext.Response.StatusCode = statusCode;
-            context.Result = new NotFoundObjectResult(responseError);
-        }
-        else
-        {
-            int statusCode = StatusCodes.Status500InternalServerError;
-            
-            ResponseErrorJson responseError = new(
-                name: nameof(CustomException),
-                message: context.Exception.Message,
-                action: "Entre em contato com o suporte.",
-                statusCode: (HttpStatusCode)statusCode
-            );
-        }
+        ResponseErrorJson responseError = new(
+            name: customException.ErrorName,
+            message: customException.GetErros(),
+            action: customException.GetAction(),
+            statusCode: (HttpStatusCode)customException.StatusCode
+        );
+        
+        context.HttpContext.Response.StatusCode = customException.StatusCode;
+        context.Result = new ObjectResult(responseError);
     }
     
     private void ThrowUnkowError(ExceptionContext context)

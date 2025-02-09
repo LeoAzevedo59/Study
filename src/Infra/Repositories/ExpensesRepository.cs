@@ -1,11 +1,12 @@
 using Domain.Entities;
 using Domain.Repositories;
+using Domain.Repositories.Expenses;
 using Infra.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repositories;
 
-internal class ExpensesRepository(ApiDbContext dbContext) : IExpenseRepository
+internal class ExpensesRepository(ApiDbContext dbContext) : IExpenseReadOnlyRepository, IExpenseWriteOnlyRepository
 {
     public async Task Add(Expense expense)
     {
