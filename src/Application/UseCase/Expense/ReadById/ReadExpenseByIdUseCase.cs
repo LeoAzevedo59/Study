@@ -16,7 +16,8 @@ public class ReadExpenseByIdUseCase(
         var result = await repository.GetById(expenseId);
 
         if (result is null)
-            throw new NotFoundException("Despesa não encontrada.", "Valide o identificador da despesa.");
+            throw new NotFoundException("Despesa não encontrada.",
+                "Valide o identificador da despesa.");
                 
         var response = mapper.Map<ResponseReadExpenseJson>(result);
 

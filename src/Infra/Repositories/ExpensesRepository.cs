@@ -12,7 +12,7 @@ internal class ExpensesRepository(ApiDbContext dbContext) : IExpenseReadOnlyRepo
     {
         await dbContext.Expenses.AddAsync(expense);
     }
-    
+
     public async Task<List<Expense>> Get()
     {
         var result = await dbContext.Expenses
@@ -28,5 +28,17 @@ internal class ExpensesRepository(ApiDbContext dbContext) : IExpenseReadOnlyRepo
             .FirstOrDefaultAsync(expense => expense.Id == expenseId);
 
         return result;
+    }
+    
+    public async Task<bool> Delete(Guid expenseId)
+    {
+     var expense = await dbContext.Expenses
+         .FirstOrDefaultAsync(expanse => expanse.Id == expenseId);
+        
+     if(expense is null) return false;
+     
+     dbContext.Expenses.Remove(expense);
+        
+     return true;
     }
 }

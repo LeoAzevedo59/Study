@@ -1,4 +1,5 @@
 using Application.UseCase.Expense.Create;
+using Application.UseCase.Expense.Delete;
 using Application.useCase.Expense.Read;
 using Application.useCase.Expense.ReadById;
 using Communication.Requests.Expense;
@@ -46,5 +47,17 @@ public class ExpenseController() : ControllerBase
     {
         var response = await readExpenseByIdUseCase.Execute(id);
         return Ok(response);
+    }
+
+    [HttpDelete]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(
+        [FromServices] IDeleteExpenseUseCase deleteExpenseUseCase,
+        [FromRoute] Guid id)
+    {
+         await deleteExpenseUseCase.Execute(id);
+         return NoContent();
     }
 }

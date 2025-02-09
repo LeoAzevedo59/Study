@@ -1,5 +1,6 @@
 using Application.AutoMapper;
 using Application.UseCase.Expense.Create;
+using Application.UseCase.Expense.Delete;
 using Application.useCase.Expense.Read;
 using Application.useCase.Expense.ReadById;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,5 +25,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<ICreateExpenseUseCase, CreateExpenseUseCase>();
         services.AddScoped<IReadExpenseUseCase, ReadExpenseUseCase>();
         services.AddScoped<IReadExpenseByIdUseCase, ReadExpenseByIdUseCase>();
+        services.AddScoped<IDeleteExpenseUseCase, DeleteExpenseUseCase>();
     }
 }
