@@ -1,4 +1,6 @@
-# [Notiify.me](https://www.notiify.me/)
+# Study
+
+Repository para estudar backend com foco em utilziar boas praticas e novidades do .NET C#
 
 ## Dependências globais
 
