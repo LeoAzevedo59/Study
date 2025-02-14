@@ -96,19 +96,19 @@ Espero que seja **False**
 Gerando uma nova migration
 
 ```bash
-dotnet ef migrations add <NomeMigration>
+ dotnet ef migrations add <NomeMigration> --project Infra --startup-project Api
 ```
 
 
 Executar migration
 
 ```bash
-dotnet ef database update
+dotnet ef database update  --project Infra --startup-project Api
 ```
 
 Listar migrations existentes
 
 
 ```bash
-dotnet ef migrations list
+dotnet ef migrations list  --project Infra --startup-project Api
 ```

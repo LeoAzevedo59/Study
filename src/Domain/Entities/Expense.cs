@@ -26,4 +26,10 @@ public class Expense
     
     [Column("payment")]
     public PaymentType Payment { get; set; }
+
+    [Column("user_id")]
+    public Guid UserId { get; set; }
+    
+    [Column("user")]
+    public required User User { get; set; }
 }
