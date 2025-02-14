@@ -9,7 +9,6 @@ namespace Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        // comentario test
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ResponseErrorJson),
