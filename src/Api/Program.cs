@@ -1,6 +1,7 @@
 using Api.Filters;
 using Application;
 using Infra;
+using Infra.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,4 +28,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+await MigrateDatabase();
+
 app.Run();
+
+async Task MigrateDatabase()
+{
+    await using var scope = app.Services.CreateAsyncScope();
+    await DatabaseMigration.MigrateDatabase(scope.ServiceProvider);
+}
