@@ -7,7 +7,7 @@ namespace Domain.Entities
     [Table("expenses")]
     public class Expense
     {
-        [Key] [Column("id")] public Guid Id { get; set; }
+        [Key][Column("id")] public Guid Id { get; set; }
 
         [Column("title")] public string Title { get; set; } = string.Empty;
 

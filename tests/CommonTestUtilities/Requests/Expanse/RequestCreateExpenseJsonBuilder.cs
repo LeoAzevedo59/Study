@@ -7,7 +7,7 @@ public class RequestCreateExpenseJsonBuilder
 {
     public static RequestCreateExpenseJson Build()
     {
-        
+
         RequestCreateExpenseJson request = new()
         {
             Title = "title",

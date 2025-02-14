@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repositories;
 
-internal class ExpensesRepository(ApiDbContext dbContext) : 
+internal class ExpensesRepository(ApiDbContext dbContext) :
     IExpenseReadOnlyRepository,
     IExpenseWriteOnlyRepository,
     IExpenseUpdateOnlyRepository
@@ -20,7 +20,7 @@ internal class ExpensesRepository(ApiDbContext dbContext) :
     {
         var result = await dbContext.Expenses
             .AsNoTracking().ToListAsync();
-        
+
         return result;
     }
 
@@ -32,7 +32,7 @@ internal class ExpensesRepository(ApiDbContext dbContext) :
 
         return result;
     }
-    
+
     async Task<Expense?> IExpenseUpdateOnlyRepository.GetById(Guid expenseId)
     {
         var result = await dbContext.Expenses
@@ -43,18 +43,18 @@ internal class ExpensesRepository(ApiDbContext dbContext) :
 
     public async Task<bool> Delete(Guid expenseId)
     {
-     var expense = await dbContext.Expenses
-         .FirstOrDefaultAsync(expanse => expanse.Id == expenseId);
-        
-     if(expense is null) return false;
-     
-     dbContext.Expenses.Remove(expense);
-        
-     return true;
+        var expense = await dbContext.Expenses
+            .FirstOrDefaultAsync(expanse => expanse.Id == expenseId);
+
+        if (expense is null) return false;
+
+        dbContext.Expenses.Remove(expense);
+
+        return true;
     }
 
     public void Update(Expense expense)
     {
-         dbContext.Update<Expense>(expense);
+        dbContext.Update<Expense>(expense);
     }
 }
