@@ -1,11 +1,10 @@
 using AutoMapper;
 using Communication.Requests.Expense;
 using Communication.Responses.Expense;
-using Domain.Enums;
+using Communication.Utils;
 using Domain.Repositories;
 using Domain.Repositories.Expenses;
 using Exception.Exceptions;
-using ExpenseEntity = Domain.Entities.Expense;
 
 namespace Application.UseCase.Expense.Create;
 
@@ -18,7 +17,7 @@ public class CreateExpenseUseCase(
     {
         Validate(request);
 
-        var entity = mapper.Map<ExpenseEntity>(request);
+        var entity = mapper.Map<Domain.Entities.Expense>(request);
         
         await expenseRepository.Add(entity);
         await  unityOfWork.Commit();
@@ -32,10 +31,7 @@ public class CreateExpenseUseCase(
     {
         CreateExpenseValidator validator = new();
         var result = validator.Validate(request);
-        var errorMessages = result
-            .Errors
-            .Select(error => error.ErrorMessage)
-            .ToList();
+        var errorMessages = ErrorMessagesFilter.GetMessages(result);
 
         if (!result.IsValid)
             throw new ErrorOnValidationException(errorMessages, "Valide os campos obrigatórios.");

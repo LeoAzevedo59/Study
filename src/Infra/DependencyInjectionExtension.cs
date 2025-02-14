@@ -1,5 +1,6 @@
 using Domain.Repositories;
 using Domain.Repositories.Expenses;
+using Domain.Repositories.User;
 using Infra.DataAccess;
 using Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -17,10 +18,25 @@ public static class DependencyInjectionExtension
 
     private static void AddRepositories(IServiceCollection services)
     {
+        #region ExpensesRepository
+
         services.AddScoped<IExpenseReadOnlyRepository, ExpensesRepository>();
         services.AddScoped<IExpenseWriteOnlyRepository, ExpensesRepository>();
         services.AddScoped<IExpenseUpdateOnlyRepository, ExpensesRepository>();
+
+        #endregion
+
+        #region UnityOfWork
+
         services.AddScoped<IUnityOfWork, UnityOfWork>();
+
+        #endregion
+
+        #region UserRepository
+
+        services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+
+        #endregion
     } 
     
     private static void AddDbContext(IServiceCollection services)

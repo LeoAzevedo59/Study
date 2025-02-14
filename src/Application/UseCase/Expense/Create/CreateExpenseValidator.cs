@@ -9,8 +9,10 @@ public class CreateExpenseValidator : AbstractValidator<RequestCreateExpenseJson
     {
         RuleFor(prop => prop.Title)
             .NotEmpty()
-            .WithMessage("Título não é válido.");
-        
+            .WithMessage("Título não é válido.")
+            .MaximumLength(32)
+            .WithMessage("Título deve conter no máximo 32 caracteres");
+
         RuleFor(prop => prop.Amount)
             .GreaterThan(decimal.Zero)
             .WithMessage("Valor deve ser maior que zero.");

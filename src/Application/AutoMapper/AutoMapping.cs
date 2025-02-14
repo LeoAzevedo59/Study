@@ -1,5 +1,6 @@
 using AutoMapper;
 using Communication.Requests.Expense;
+using Communication.Requests.Users;
 using Communication.Responses.Expense;
 using Domain.Entities;
 
@@ -22,6 +23,7 @@ public class AutoMapping : Profile
                     source.PaymentType.ToString()));
 
         CreateMap<RequestUpdateExpenseJson, Expense>();
+        CreateMap<RequestCreateUserJson, User>();
     }
 
     private void EntityToRequest()
