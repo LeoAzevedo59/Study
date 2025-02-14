@@ -1,23 +1,24 @@
 using Communication.Requests.Expense;
 using FluentValidation;
 
-namespace Application.UseCase.Expense.Update;
-
-public class UpdateExpenseValidator : AbstractValidator<RequestUpdateExpenseJson>
+namespace Application.UseCase.Expense.Update
 {
-
-    public UpdateExpenseValidator()
+    public class
+        UpdateExpenseValidator : AbstractValidator<RequestUpdateExpenseJson>
     {
-        RuleFor(prop => prop.Title)
-            .NotEmpty()
-            .WithMessage("Título não é válido.");
-        
-        RuleFor(prop => prop.Amount)
-            .GreaterThan(decimal.Zero)
-            .WithMessage("Valor deve ser maior que zero.");
-        
-        RuleFor(prop => prop.MovementAt)
-            .LessThanOrEqualTo(DateTime.UtcNow)
-            .WithMessage("Data de movimentação deve ser retroativa.");
+        public UpdateExpenseValidator()
+        {
+            RuleFor(prop => prop.Title)
+                .NotEmpty()
+                .WithMessage("Título não é válido.");
+
+            RuleFor(prop => prop.Amount)
+                .GreaterThan(decimal.Zero)
+                .WithMessage("Valor deve ser maior que zero.");
+
+            RuleFor(prop => prop.MovementAt)
+                .LessThanOrEqualTo(DateTime.UtcNow)
+                .WithMessage("Data de movimentação deve ser retroativa.");
+        }
     }
 }

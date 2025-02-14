@@ -1,8 +1,9 @@
 using Communication.Requests.Users;
 
-namespace Application.UseCase.User.Create;
-
-public interface ICreateUserUseCase
+namespace Application.UseCase.User.Create
 {
-    Task Execute(RequestCreateUserJson request);
+    public interface ICreateUserUseCase
+    {
+        Task Execute(RequestCreateUserJson request);
+    }
 }

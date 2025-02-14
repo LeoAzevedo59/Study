@@ -1,26 +1,30 @@
 using AutoMapper;
 using Communication.Responses.Expense;
-using Domain.Repositories;
 using Domain.Repositories.Expenses;
 using Exception.Exceptions;
 
-namespace Application.useCase.Expense.ReadById;
-
-public class ReadExpenseByIdUseCase(
-    IMapper mapper,
-    IExpenseReadOnlyRepository repository
-    ) : IReadExpenseByIdUseCase
+namespace Application.useCase.Expense.ReadById
 {
-    public async Task<ResponseReadExpenseJson> Execute(Guid expenseId)
+    public class ReadExpenseByIdUseCase(
+        IMapper mapper,
+        IExpenseReadOnlyRepository repository
+    ) : IReadExpenseByIdUseCase
     {
-        var result = await repository.GetById(expenseId);
+        public async Task<ResponseReadExpenseJson> Execute(Guid expenseId)
+        {
+            Domain.Entities.Expense? result =
+                await repository.GetById(expenseId);
 
-        if (result is null)
-            throw new NotFoundException("Despesa não encontrada.",
-                "Valide o identificador da despesa.");
-                
-        var response = mapper.Map<ResponseReadExpenseJson>(result);
+            if (result is null)
+            {
+                throw new NotFoundException("Despesa não encontrada.",
+                    "Valide o identificador da despesa.");
+            }
 
-        return response;
+            ResponseReadExpenseJson? response =
+                mapper.Map<ResponseReadExpenseJson>(result);
+
+            return response;
+        }
     }
 }

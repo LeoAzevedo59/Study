@@ -1,8 +1,9 @@
 using Communication.Requests.Expense;
 
-namespace Application.UseCase.Expense.Update;
-
-public interface IUpdateExpenseUseCase
+namespace Application.UseCase.Expense.Update
 {
-    Task Execute(Guid expenseId, RequestUpdateExpenseJson request);
+    public interface IUpdateExpenseUseCase
+    {
+        Task Execute(Guid expenseId, RequestUpdateExpenseJson request);
+    }
 }

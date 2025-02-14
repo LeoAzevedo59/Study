@@ -1,8 +1,9 @@
 using Communication.Responses.Expense;
 
-namespace Application.useCase.Expense.ReadById;
-
-public interface IReadExpenseByIdUseCase
+namespace Application.useCase.Expense.ReadById
 {
-    Task<ResponseReadExpenseJson> Execute(Guid expenseId);
+    public interface IReadExpenseByIdUseCase
+    {
+        Task<ResponseReadExpenseJson> Execute(Guid expenseId);
+    }
 }

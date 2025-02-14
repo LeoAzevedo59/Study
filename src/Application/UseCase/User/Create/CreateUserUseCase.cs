@@ -4,33 +4,39 @@ using Communication.Utils;
 using Domain.Repositories;
 using Domain.Repositories.User;
 using Exception.Exceptions;
-using Microsoft.Extensions.Options;
+using FluentValidation.Results;
 
-namespace Application.UseCase.User.Create;
-
-public class CreateUserUseCase(
-    IUserWriteOnlyRepository userWriteOnlyRepository,
-    IMapper mapper,
-    IUnityOfWork unityOfWork
-    ) : ICreateUserUseCase
+namespace Application.UseCase.User.Create
 {
-    public async Task Execute(RequestCreateUserJson request)
+    public class CreateUserUseCase(
+        IUserWriteOnlyRepository userWriteOnlyRepository,
+        IMapper mapper,
+        IUnityOfWork unityOfWork
+    ) : ICreateUserUseCase
     {
-        Validate(request);
+        public async Task Execute(RequestCreateUserJson request)
+        {
+            Validate(request);
 
-        var entity = mapper.Map<Domain.Entities.User>(request);
-        
-        await userWriteOnlyRepository.Add(entity);
-        await unityOfWork.Commit();
-    }
+            Domain.Entities.User? entity =
+                mapper.Map<Domain.Entities.User>(request);
 
-    private void Validate(RequestCreateUserJson request)
-    {
-        CreateUserValidator validator = new ();
-        var result = validator.Validate(request);
-        var errorMessages = ErrorMessagesFilter.GetMessages(result);
-        
-        if(!result.IsValid)
-            throw new ErrorOnValidationException(errorMessages, "Valide os campos obrigatórios.");
+            await userWriteOnlyRepository.Add(entity);
+            await unityOfWork.Commit();
+        }
+
+        private void Validate(RequestCreateUserJson request)
+        {
+            CreateUserValidator validator = new();
+            ValidationResult? result = validator.Validate(request);
+            List<string> errorMessages =
+                ErrorMessagesFilter.GetMessages(result);
+
+            if (!result.IsValid)
+            {
+                throw new ErrorOnValidationException(errorMessages,
+                    "Valide os campos obrigatórios.");
+            }
+        }
     }
 }

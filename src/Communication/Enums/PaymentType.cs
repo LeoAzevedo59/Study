@@ -1,8 +1,9 @@
-namespace Communication.Enums;
-
-public enum PaymentType
+namespace Communication.Enums
 {
-    Cash,
-    CreditCard,
-    DebitCard
+    public enum PaymentType
+    {
+        Cash,
+        CreditCard,
+        DebitCard
+    }
 }

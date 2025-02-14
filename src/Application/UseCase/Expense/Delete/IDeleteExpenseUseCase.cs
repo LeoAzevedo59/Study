@@ -1,6 +1,7 @@
-namespace Application.UseCase.Expense.Delete;
-
-public interface IDeleteExpenseUseCase
+namespace Application.UseCase.Expense.Delete
 {
-    Task Execute(Guid expenseId);
+    public interface IDeleteExpenseUseCase
+    {
+        Task Execute(Guid expenseId);
+    }
 }

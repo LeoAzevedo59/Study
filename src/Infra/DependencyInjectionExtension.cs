@@ -6,46 +6,55 @@ using Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infra;
-
-public static class DependencyInjectionExtension
+namespace Infra
 {
-    public static void AddInfra(this IServiceCollection services)
+    public static class DependencyInjectionExtension
     {
-        AddDbContext(services);
-        AddRepositories(services);
-    }
+        public static void AddInfra(this IServiceCollection services)
+        {
+            AddDbContext(services);
+            AddRepositories(services);
+        }
 
-    private static void AddRepositories(IServiceCollection services)
-    {
-        #region ExpensesRepository
+        private static void AddRepositories(IServiceCollection services)
+        {
+            #region ExpensesRepository
 
-        services.AddScoped<IExpenseReadOnlyRepository, ExpensesRepository>();
-        services.AddScoped<IExpenseWriteOnlyRepository, ExpensesRepository>();
-        services.AddScoped<IExpenseUpdateOnlyRepository, ExpensesRepository>();
+            services
+                .AddScoped<IExpenseReadOnlyRepository, ExpensesRepository>();
+            services
+                .AddScoped<IExpenseWriteOnlyRepository, ExpensesRepository>();
+            services
+                .AddScoped<IExpenseUpdateOnlyRepository, ExpensesRepository>();
 
-        #endregion
+            #endregion
 
-        #region UnityOfWork
+            #region UnityOfWork
 
-        services.AddScoped<IUnityOfWork, UnityOfWork>();
+            services.AddScoped<IUnityOfWork, UnityOfWork>();
 
-        #endregion
+            #endregion
 
-        #region UserRepository
+            #region UserRepository
 
-        services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+            services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
 
-        #endregion
-    } 
-    
-    private static void AddDbContext(IServiceCollection services)
-    {
-        string? connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+            #endregion
+        }
 
-        if (string.IsNullOrEmpty(connectionString))
-            throw new ArgumentException("Variável de ambiente: `CONNECTION_STRING` não configurada.");
-        
-        services.AddDbContext<ApiDbContext>(config => config.UseNpgsql(connectionString));
+        private static void AddDbContext(IServiceCollection services)
+        {
+            string? connectionString =
+                Environment.GetEnvironmentVariable("CONNECTION_STRING");
+
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new ArgumentException(
+                    "Variável de ambiente: `CONNECTION_STRING` não configurada.");
+            }
+
+            services.AddDbContext<ApiDbContext>(config =>
+                config.UseNpgsql(connectionString));
+        }
     }
 }

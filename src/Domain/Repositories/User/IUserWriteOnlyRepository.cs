@@ -1,6 +1,7 @@
-namespace Domain.Repositories.User;
-
-public interface IUserWriteOnlyRepository
+namespace Domain.Repositories.User
 {
-    Task Add(Entities.User user);
+    public interface IUserWriteOnlyRepository
+    {
+        Task Add(Entities.User user);
+    }
 }

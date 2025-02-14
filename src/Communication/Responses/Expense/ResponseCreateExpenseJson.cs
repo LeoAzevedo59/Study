@@ -1,9 +1,10 @@
 using System.Text.Json.Serialization;
 
-namespace Communication.Responses.Expense;
-
-public class ResponseCreateExpenseJson
+namespace Communication.Responses.Expense
 {
-    [JsonPropertyName("title")]
-    public string Title { get; set; } = string.Empty;
+    public class ResponseCreateExpenseJson
+    {
+        [JsonPropertyName("title")]
+        public string Title { get; set; } = string.Empty;
+    }
 }

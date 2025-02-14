@@ -1,7 +1,8 @@
-namespace Domain.Enums;
-
-public class RoleType
+namespace Domain.Enums
 {
-    public const string ADMIN = "Admin";
-    public const string TEAM_MEMBER = "TeamMember";
+    public class RoleType
+    {
+        public const string ADMIN = "Admin";
+        public const string TEAM_MEMBER = "TeamMember";
+    }
 }

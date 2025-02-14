@@ -1,16 +1,18 @@
 using FluentValidation.Results;
 
-namespace Communication.Utils;
-
-public static class ErrorMessagesFilter
+namespace Communication.Utils
 {
-    public static List<string> GetMessages(ValidationResult validationResult)
+    public static class ErrorMessagesFilter
     {
-        var errorMessages = validationResult
-            .Errors
-            .Select(error => error.ErrorMessage)
-            .ToList();
+        public static List<string> GetMessages(
+            ValidationResult validationResult)
+        {
+            List<string> errorMessages = validationResult
+                .Errors
+                .Select(error => error.ErrorMessage)
+                .ToList();
 
-        return errorMessages;
+            return errorMessages;
+        }
     }
 }

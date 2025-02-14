@@ -1,17 +1,18 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infra.DataAccess;
-
-internal class ApiDbContext(DbContextOptions options) : DbContext(options)
+namespace Infra.DataAccess
 {
-    public DbSet<Expense> Expenses { get; set; }
-    public DbSet<User> Users { get; set; }
-    
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    internal class ApiDbContext(DbContextOptions options) : DbContext(options)
     {
-        modelBuilder.Entity<Expense>()
-            .Property(u => u.Payment)
-            .HasConversion<string>();
+        public DbSet<Expense> Expenses { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Expense>()
+                .Property(u => u.Payment)
+                .HasConversion<string>();
+        }
     }
 }

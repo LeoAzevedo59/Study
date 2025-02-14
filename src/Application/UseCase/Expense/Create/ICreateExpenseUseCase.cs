@@ -1,9 +1,11 @@
 using Communication.Requests.Expense;
 using Communication.Responses.Expense;
 
-namespace Application.UseCase.Expense.Create;
-
-public interface ICreateExpenseUseCase
+namespace Application.UseCase.Expense.Create
 {
-    Task<ResponseCreateExpenseJson> Execute(RequestCreateExpenseJson request);
+    public interface ICreateExpenseUseCase
+    {
+        Task<ResponseCreateExpenseJson> Execute(
+            RequestCreateExpenseJson request);
+    }
 }

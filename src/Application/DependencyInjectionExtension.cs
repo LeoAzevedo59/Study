@@ -7,29 +7,31 @@ using Application.UseCase.Expense.Update;
 using Application.UseCase.User.Create;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application;
-
-public static class DependencyInjectionExtension
+namespace Application
 {
-    public static void AddApplication(this IServiceCollection services)
+    public static class DependencyInjectionExtension
     {
-        AddAutoMapper(services);
-        AddUseCase(services);
-    }
+        public static void AddApplication(this IServiceCollection services)
+        {
+            AddAutoMapper(services);
+            AddUseCase(services);
+        }
 
-    private static void AddAutoMapper(IServiceCollection services)
-    {
-        services.AddAutoMapper(typeof(AutoMapping));
-    }
-    
-    private static void AddUseCase(IServiceCollection services)
-    {
-        services.AddScoped<ICreateExpenseUseCase, CreateExpenseUseCase>();
-        services.AddScoped<IReadExpenseUseCase, ReadExpenseUseCase>();
-        services.AddScoped<IReadExpenseByIdUseCase, ReadExpenseByIdUseCase>();
-        services.AddScoped<IDeleteExpenseUseCase, DeleteExpenseUseCase>();
-        services.AddScoped<IUpdateExpenseUseCase, UpdateExpenseUseCase>();
-        
-        services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
+        private static void AddAutoMapper(IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(AutoMapping));
+        }
+
+        private static void AddUseCase(IServiceCollection services)
+        {
+            services.AddScoped<ICreateExpenseUseCase, CreateExpenseUseCase>();
+            services.AddScoped<IReadExpenseUseCase, ReadExpenseUseCase>();
+            services
+                .AddScoped<IReadExpenseByIdUseCase, ReadExpenseByIdUseCase>();
+            services.AddScoped<IDeleteExpenseUseCase, DeleteExpenseUseCase>();
+            services.AddScoped<IUpdateExpenseUseCase, UpdateExpenseUseCase>();
+
+            services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
+        }
     }
 }

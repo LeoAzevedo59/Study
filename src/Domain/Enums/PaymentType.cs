@@ -1,8 +1,9 @@
-namespace Domain.Enums;
-
-public enum PaymentType
+namespace Domain.Enums
 {
-    cash,
-    credit_card,
-    debit_card
+    public enum PaymentType
+    {
+        cash,
+        credit_card,
+        debit_card
+    }
 }

@@ -5,35 +5,44 @@ using Communication.Utils;
 using Domain.Repositories;
 using Domain.Repositories.Expenses;
 using Exception.Exceptions;
+using FluentValidation.Results;
 
-namespace Application.UseCase.Expense.Create;
-
-public class CreateExpenseUseCase(
-    IExpenseWriteOnlyRepository expenseRepository,
-    IMapper mapper,
-    IUnityOfWork unityOfWork) : ICreateExpenseUseCase
+namespace Application.UseCase.Expense.Create
 {
-    public async Task<ResponseCreateExpenseJson> Execute(RequestCreateExpenseJson request)
+    public class CreateExpenseUseCase(
+        IExpenseWriteOnlyRepository expenseRepository,
+        IMapper mapper,
+        IUnityOfWork unityOfWork) : ICreateExpenseUseCase
     {
-        Validate(request);
+        public async Task<ResponseCreateExpenseJson> Execute(
+            RequestCreateExpenseJson request)
+        {
+            Validate(request);
 
-        var entity = mapper.Map<Domain.Entities.Expense>(request);
-        
-        await expenseRepository.Add(entity);
-        await  unityOfWork.Commit();
-        
-        var response = mapper.Map<ResponseCreateExpenseJson>(entity);
+            Domain.Entities.Expense? entity =
+                mapper.Map<Domain.Entities.Expense>(request);
 
-        return response;
-    }
+            await expenseRepository.Add(entity);
+            await unityOfWork.Commit();
 
-    private void Validate(RequestCreateExpenseJson request)
-    {
-        CreateExpenseValidator validator = new();
-        var result = validator.Validate(request);
-        var errorMessages = ErrorMessagesFilter.GetMessages(result);
+            ResponseCreateExpenseJson? response =
+                mapper.Map<ResponseCreateExpenseJson>(entity);
 
-        if (!result.IsValid)
-            throw new ErrorOnValidationException(errorMessages, "Valide os campos obrigatórios.");
+            return response;
+        }
+
+        private void Validate(RequestCreateExpenseJson request)
+        {
+            CreateExpenseValidator validator = new();
+            ValidationResult? result = validator.Validate(request);
+            List<string> errorMessages =
+                ErrorMessagesFilter.GetMessages(result);
+
+            if (!result.IsValid)
+            {
+                throw new ErrorOnValidationException(errorMessages,
+                    "Valide os campos obrigatórios.");
+            }
+        }
     }
 }

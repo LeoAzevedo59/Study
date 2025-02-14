@@ -1,20 +1,22 @@
 using System.Net;
 
-namespace Exception.Exceptions;
-
-public class EnvironmentVariablesEmpty(string message, string action) : CustomException(message)
+namespace Exception.Exceptions
 {
-    public override string ErrorName => nameof(EnvironmentVariablesEmpty);
-    public override int StatusCode => (int)HttpStatusCode.BadRequest;
-    private readonly string _message = message;
+    public class EnvironmentVariablesEmpty(string message, string action)
+        : CustomException(message)
+    {
+        private readonly string _message = message;
+        public override string ErrorName => nameof(EnvironmentVariablesEmpty);
+        public override int StatusCode => (int)HttpStatusCode.BadRequest;
 
-    public override List<string> GetErros()
-    {
-     return [_message];
-    }
-    
-    public override string GetAction()
-    {
-        return action;
+        public override List<string> GetErros()
+        {
+            return [_message];
+        }
+
+        public override string GetAction()
+        {
+            return action;
+        }
     }
 }
