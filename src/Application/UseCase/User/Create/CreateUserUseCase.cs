@@ -21,7 +21,7 @@ namespace Application.UseCase.User.Create
         IUnityOfWork unityOfWork
     ) : ICreateUserUseCase
     {
-        public async Task<ResponseCreateUserJson> Execute(
+        public async Task<ResponseUserAuthJson> Execute(
             RequestCreateUserJson request)
         {
             await Validate(request);
@@ -35,7 +35,7 @@ namespace Application.UseCase.User.Create
             await userWriteOnlyRepository.Add(entity);
             await unityOfWork.Commit();
 
-            return new ResponseCreateUserJson
+            return new ResponseUserAuthJson
             {
                 AccessToken = accessTokenGenerator.Generate(entity)
             };

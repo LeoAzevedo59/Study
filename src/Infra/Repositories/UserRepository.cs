@@ -15,6 +15,13 @@ namespace Infra.Repositories
                 user.Email.Equals(email));
         }
 
+        public async Task<User?> GetByEmail(string email)
+        {
+            return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(
+                user =>
+                    user.Email.Equals(email));
+        }
+
         public async Task Add(User user)
         {
             await dbContext.Users.AddAsync(user);

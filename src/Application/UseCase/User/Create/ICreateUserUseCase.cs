@@ -5,6 +5,6 @@ namespace Application.UseCase.User.Create
 {
     public interface ICreateUserUseCase
     {
-        Task<ResponseCreateUserJson> Execute(RequestCreateUserJson request);
+        Task<ResponseUserAuthJson> Execute(RequestCreateUserJson request);
     }
 }
