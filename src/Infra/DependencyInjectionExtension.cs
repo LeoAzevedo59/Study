@@ -5,7 +5,7 @@ using Domain.Security.Cryptography;
 using Domain.Tokens;
 using Infra.DataAccess;
 using Infra.Repositories;
-using Infra.Security;
+using Infra.Security.Cryptography;
 using Infra.Security.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +18,7 @@ namespace Infra
         {
             AddDbContext(services);
             AddRepositories(services);
+            AddAuthorization(services);
         }
 
         private static void AddRepositories(IServiceCollection services)
@@ -51,12 +52,6 @@ namespace Infra
             services.AddScoped<IPasswordEncrypt, Cryptography>();
 
             #endregion
-
-            #region JwtTokenGenerator
-
-            services.AddScoped<IAccessTokenGenerator, JwtTokenGenerator>();
-
-            #endregion
         }
 
         private static void AddDbContext(IServiceCollection services)
@@ -72,6 +67,31 @@ namespace Infra
 
             services.AddDbContext<ApiDbContext>(config =>
                 config.UseNpgsql(connectionString));
+        }
+
+        private static void AddAuthorization(IServiceCollection services)
+        {
+            string? signinKey =
+                Environment.GetEnvironmentVariable("SIGNIN_KEY");
+
+            if (string.IsNullOrEmpty(signinKey))
+            {
+                throw new ArgumentException(
+                    "Variável `SIGNIN_KEY` não configurada.");
+            }
+
+            uint expiresMinutes =
+                Convert.ToUInt16(
+                    Environment.GetEnvironmentVariable("EXPIRES_MINUTES"));
+
+            if (expiresMinutes <= 0)
+            {
+                throw new ArgumentException(
+                    "Variável `EXPIRES_MINUTES` não configurada.");
+            }
+
+            services.AddScoped<IAccessTokenGenerator>(config =>
+                new JwtTokenGenerator(expiresMinutes, signinKey));
         }
     }
 }

@@ -1,6 +1,7 @@
 using Application.UseCase.User.Create;
 using Communication.Requests.Users;
 using Communication.Responses.ResponseError;
+using Communication.Responses.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -10,7 +11,8 @@ namespace Api.Controllers
     public class UserController : ControllerBase
     {
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseCreateUserJson),
+            StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ResponseErrorJson),
             StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register(
@@ -18,8 +20,8 @@ namespace Api.Controllers
             [FromBody] RequestCreateUserJson request
         )
         {
-            await useCase.Execute(request);
-            return Created();
+            ResponseCreateUserJson response = await useCase.Execute(request);
+            return Created(string.Empty, response);
         }
     }
 }

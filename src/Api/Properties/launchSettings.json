@@ -9,7 +9,9 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "BROWSER": "firefox",
-        "CONNECTION_STRING": "Host=ep-round-unit-a8jb25zs-pooler.eastus2.azure.neon.tech;Database=neondb;Username=neondb_owner;Password=npg_yamN7UBSc9CE"
+        "CONNECTION_STRING": "Host=ep-round-unit-a8jb25zs-pooler.eastus2.azure.neon.tech;Database=neondb;Username=neondb_owner;Password=npg_yamN7UBSc9CE",
+        "SIGNIN_KEY": "!2abBJ>3X1<3A{13aXXz)2dKjwZw!eKd",
+        "EXPIRES_MINUTES": "1000"
       }
     }
   }

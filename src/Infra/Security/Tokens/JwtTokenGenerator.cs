@@ -13,10 +13,10 @@ namespace Infra.Security.Tokens
     {
         public string Generate(User user)
         {
-            List<Claim> payloads =
+            IEnumerable<Claim> payloads =
             [
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                new(ClaimTypes.Name, user.Name),
+                new(ClaimTypes.NameIdentifier, user.Id.ToString())
             ];
 
             SecurityTokenDescriptor tokenDescription = new()
@@ -25,7 +25,7 @@ namespace Infra.Security.Tokens
                     new SigningCredentials(GetSecurityKey(),
                         SecurityAlgorithms.HmacSha256Signature),
                 Expires = DateTime.UtcNow.AddMinutes(expirationTimeMinutes),
-                Subject = new ClaimsIdentity()
+                Subject = new ClaimsIdentity(payloads)
             };
 
             JwtSecurityTokenHandler tokenHandler = new();

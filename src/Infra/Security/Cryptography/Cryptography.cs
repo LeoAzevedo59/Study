@@ -1,6 +1,6 @@
 using Domain.Security.Cryptography;
 
-namespace Infra.Security
+namespace Infra.Security.Cryptography
 {
     public class Cryptography : IPasswordEncrypt
     {
