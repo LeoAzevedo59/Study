@@ -9,21 +9,21 @@ namespace Application.UseCase.User.Create
         {
             RuleFor(prop => prop.Email)
                 .NotEmpty()
-                .WithMessage("E-mail é obrigatório")
+                .WithMessage("E-mail é obrigatório.")
                 .EmailAddress()
                 .WithMessage("E-mail não é válido.")
                 .MaximumLength(256)
-                .WithMessage("Nome deve conter no máximo 256 caracteres");
+                .WithMessage("Nome deve conter no máximo 256 caracteres.");
 
             RuleFor(prop => prop.Name)
                 .NotEmpty()
-                .WithMessage("Nome é obrigatório")
+                .WithMessage("Nome é obrigatório.")
                 .MaximumLength(32)
-                .WithMessage("Nome deve conter no máximo 32 caracteres");
+                .WithMessage("Nome deve conter no máximo 32 caracteres.");
 
             RuleFor(prop => prop.Password)
-                .NotEmpty()
-                .WithMessage("Password é obrigatório");
+                .SetValidator(new PasswordValidator<RequestCreateUserJson>())
+                .WithMessage("Senha é obrigatório.");
         }
     }
 }

@@ -7,15 +7,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="13.0.1" />
-      <PackageReference Include="FluentValidation" Version="11.11.0" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+        <PackageReference Include="AutoMapper" Version="13.0.1"/>
+        <PackageReference Include="FluentValidation" Version="11.11.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Communication\Communication.csproj" />
-      <ProjectReference Include="..\Domain\Domain.csproj" />
-      <ProjectReference Include="..\Exception\Exception.csproj" />
+        <ProjectReference Include="..\Communication\Communication.csproj"/>
+        <ProjectReference Include="..\Domain\Domain.csproj"/>
+        <ProjectReference Include="..\Exception\Exception.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+            <HintPath>..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\8.0.12\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
 </Project>
