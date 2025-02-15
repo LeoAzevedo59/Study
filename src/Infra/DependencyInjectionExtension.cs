@@ -2,9 +2,11 @@ using Domain.Repositories;
 using Domain.Repositories.Expenses;
 using Domain.Repositories.User;
 using Domain.Security.Cryptography;
+using Domain.Tokens;
 using Infra.DataAccess;
 using Infra.Repositories;
 using Infra.Security;
+using Infra.Security.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -44,9 +46,15 @@ namespace Infra
 
             #endregion
 
-            #region UserRepository
+            #region Cryptography
 
             services.AddScoped<IPasswordEncrypt, Cryptography>();
+
+            #endregion
+
+            #region JwtTokenGenerator
+
+            services.AddScoped<IAccessTokenGenerator, JwtTokenGenerator>();
 
             #endregion
         }
