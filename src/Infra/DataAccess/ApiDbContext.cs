@@ -13,6 +13,10 @@ namespace Infra.DataAccess
             modelBuilder.Entity<Expense>()
                 .Property(u => u.Payment)
                 .HasConversion<string>();
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
         }
     }
 }

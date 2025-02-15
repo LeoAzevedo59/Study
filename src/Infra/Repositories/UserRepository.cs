@@ -1,15 +1,23 @@
 using Domain.Entities;
 using Domain.Repositories.User;
 using Infra.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
-namespace Infra.Repositories;
-
-internal class UserRepository(ApiDbContext dbContext) :
-    IUserWriteOnlyRepository
+namespace Infra.Repositories
 {
-
-    public async Task Add(User user)
+    internal class UserRepository(ApiDbContext dbContext) :
+        IUserWriteOnlyRepository,
+        IUserReadOnlyRepository
     {
-        await dbContext.Users.AddAsync(user);
+        public async Task<bool> Exists(string email)
+        {
+            return await dbContext.Users.AnyAsync(user =>
+                user.Email.Equals(email));
+        }
+
+        public async Task Add(User user)
+        {
+            await dbContext.Users.AddAsync(user);
+        }
     }
 }

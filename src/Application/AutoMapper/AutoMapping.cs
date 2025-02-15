@@ -23,7 +23,10 @@ namespace Application.AutoMapper
                         source.PaymentType.ToString()));
 
             CreateMap<RequestUpdateExpenseJson, Expense>();
-            CreateMap<RequestCreateUserJson, User>();
+            CreateMap<RequestCreateUserJson, User>()
+                .ForMember(dest =>
+                    dest.Password, config =>
+                    config.Ignore());
         }
 
         private void EntityToRequest()

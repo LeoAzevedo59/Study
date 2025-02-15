@@ -1,8 +1,10 @@
 using Domain.Repositories;
 using Domain.Repositories.Expenses;
 using Domain.Repositories.User;
+using Domain.Security.Cryptography;
 using Infra.DataAccess;
 using Infra.Repositories;
+using Infra.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -38,6 +40,13 @@ namespace Infra
             #region UserRepository
 
             services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+            services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+
+            #endregion
+
+            #region UserRepository
+
+            services.AddScoped<IPasswordEncrypt, Cryptography>();
 
             #endregion
         }
