@@ -1,17 +1,19 @@
-using Application.useCase.Expense.Read;
-using Application.useCase.Expense.ReadById;
 using Application.UseCase.Expense.Create;
 using Application.UseCase.Expense.Delete;
+using Application.useCase.Expense.Read;
+using Application.useCase.Expense.ReadById;
 using Application.UseCase.Expense.Update;
 using Communication.Requests.Expense;
 using Communication.Responses.Expense;
 using Communication.Responses.ResponseError;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [Route("api/expenses")]
     [ApiController]
+    [Authorize]
     public class ExpenseController : ControllerBase
     {
         [HttpPost]

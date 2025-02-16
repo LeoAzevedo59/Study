@@ -18,6 +18,10 @@ builder.Services.AddMvc(options =>
 builder.Services.AddInfra();
 builder.Services.AddApplication();
 
+byte[] signinKey =
+    Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SIGNIN_KEY") ??
+                           string.Empty);
+
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme =
@@ -28,12 +32,10 @@ builder.Services.AddAuthentication(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = true,
+            ValidateIssuer = false,
             ValidateAudience = false,
             ClockSkew = new TimeSpan(0),
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(
-                    Environment.GetEnvironmentVariable("SIGNIN_KEY")!))
+            IssuerSigningKey = new SymmetricSecurityKey(signinKey)
         };
     });
 
