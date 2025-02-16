@@ -2,6 +2,9 @@ using Api.Filters;
 using Application;
 using Infra;
 using Infra.Migrations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,25 @@ builder.Services.AddMvc(options =>
 builder.Services.AddInfra();
 builder.Services.AddApplication();
 
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme =
+            JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = false,
+            ClockSkew = new TimeSpan(0),
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(
+                    Environment.GetEnvironmentVariable("SIGNIN_KEY")!))
+        };
+    });
+
 WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -25,6 +47,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
