@@ -1,7 +1,7 @@
 using FluentValidation;
 using FluentValidation.Validators;
 
-namespace Application.UseCase.User.Create
+namespace Application.UseCase.CommonValidator
 {
     public class PasswordValidator<T> : PropertyValidator<T, string>
     {

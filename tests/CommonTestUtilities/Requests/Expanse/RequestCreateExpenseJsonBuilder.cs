@@ -1,22 +1,22 @@
 using Communication.Enums;
 using Communication.Requests.Expense;
 
-namespace CommonTestUtilities.Requests.Expanse;
-
-public class RequestCreateExpenseJsonBuilder
+namespace CommonTestUtilities.Requests.Expanse
 {
-    public static RequestCreateExpenseJson Build()
+    public abstract class RequestCreateExpenseJsonBuilder
     {
-
-        RequestCreateExpenseJson request = new()
+        public static RequestCreateExpenseJson Build()
         {
-            Title = "title",
-            Description = "description",
-            Amount = 1,
-            MovementAt = DateTime.Now,
-            PaymentType = PaymentType.Cash,
-        };
+            RequestCreateExpenseJson request = new()
+            {
+                Title = "title",
+                Description = "description",
+                Amount = 1,
+                MovementAt = DateTime.Now,
+                PaymentType = PaymentType.Cash
+            };
 
-        return request;
+            return request;
+        }
     }
 }
