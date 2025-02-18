@@ -49,7 +49,7 @@ namespace Infra
 
             #region Cryptography
 
-            services.AddScoped<IPasswordEncrypt, Cryptography>();
+            services.AddScoped<IPasswordEncrypt, PasswordEncryptBuilder>();
 
             #endregion
         }
@@ -91,7 +91,7 @@ namespace Infra
             }
 
             services.AddScoped<IAccessTokenGenerator>(config =>
-                new JwtTokenGenerator(expiresMinutes, signinKey));
+                new JwtTokenGeneratorBuilder(expiresMinutes, signinKey));
         }
     }
 }
