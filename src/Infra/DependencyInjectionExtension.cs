@@ -8,17 +8,19 @@ using Infra.Repositories;
 using Infra.Security.Cryptography;
 using Infra.Security.Tokens;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infra
 {
     public static class DependencyInjectionExtension
     {
-        public static void AddInfra(this IServiceCollection services)
+        public static void AddInfra(this IServiceCollection services,
+            IConfiguration configuration)
         {
-            AddDbContext(services);
+            AddDbContext(services, configuration);
             AddRepositories(services);
-            AddAuthorization(services);
+            AddAuthorization(services, configuration);
         }
 
         private static void AddRepositories(IServiceCollection services)
@@ -54,10 +56,11 @@ namespace Infra
             #endregion
         }
 
-        private static void AddDbContext(IServiceCollection services)
+        private static void AddDbContext(IServiceCollection services,
+            IConfiguration configuration)
         {
             string? connectionString =
-                Environment.GetEnvironmentVariable("CONNECTION_STRING");
+                configuration["CONNECTION_STRING"];
 
             if (string.IsNullOrEmpty(connectionString))
             {
@@ -69,10 +72,10 @@ namespace Infra
                 config.UseNpgsql(connectionString));
         }
 
-        private static void AddAuthorization(IServiceCollection services)
+        private static void AddAuthorization(IServiceCollection services,
+            IConfiguration configuration)
         {
-            string? signinKey =
-                Environment.GetEnvironmentVariable("SIGNIN_KEY");
+            string? signinKey = configuration["SIGNIN_KEY"];
 
             if (string.IsNullOrEmpty(signinKey))
             {
@@ -81,8 +84,7 @@ namespace Infra
             }
 
             uint expiresMinutes =
-                Convert.ToUInt16(
-                    Environment.GetEnvironmentVariable("EXPIRES_MINUTES"));
+                Convert.ToUInt16(configuration["EXPIRES_MINUTES"]);
 
             if (expiresMinutes <= 0)
             {

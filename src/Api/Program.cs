@@ -45,12 +45,21 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddMvc(options =>
     options.Filters.Add(typeof(ExceptionFilter)));
 
-builder.Services.AddInfra();
+builder.Services.AddInfra(builder.Configuration);
 builder.Services.AddApplication();
 
+string? signInKeyVariable =
+    builder.Configuration["SIGNIN_KEY"];
+
+if (string.IsNullOrEmpty(signInKeyVariable))
+{
+    throw new ArgumentException(
+        "Variável `SIGNIN_KEY` não configurada.");
+}
+
 byte[] signinKey =
-    Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SIGNIN_KEY") ??
-                           string.Empty);
+    Encoding.UTF8.GetBytes(
+        signInKeyVariable);
 
 builder.Services.AddAuthentication(options =>
     {
@@ -92,4 +101,8 @@ async Task MigrateDatabase()
 {
     await using AsyncServiceScope scope = app.Services.CreateAsyncScope();
     await DatabaseMigration.MigrateDatabase(scope.ServiceProvider);
+}
+
+public abstract partial class Program
+{
 }

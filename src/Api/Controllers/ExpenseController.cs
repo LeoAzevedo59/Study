@@ -6,14 +6,13 @@ using Application.UseCase.Expense.Update;
 using Communication.Requests.Expense;
 using Communication.Responses.Expense;
 using Communication.Responses.ResponseError;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [Route("api/expenses")]
     [ApiController]
-    [Authorize]
+    // [Authorize]
     public class ExpenseController : ControllerBase
     {
         [HttpPost]
@@ -21,7 +20,7 @@ namespace Api.Controllers
             StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ResponseErrorJson),
             StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Register(
+        public async Task<IActionResult> Crete(
             [FromServices] ICreateExpenseUseCase useCase,
             [FromBody] RequestCreateExpenseJson request)
         {
