@@ -5,7 +5,7 @@ using Application.UseCase.Expense.Create;
 using Application.UseCase.Expense.Delete;
 using Application.UseCase.Expense.Update;
 using Application.UseCase.User.Create;
-using Application.UseCase.User.Signin;
+using Application.UseCase.User.SignIn;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application
@@ -33,7 +33,7 @@ namespace Application
             services.AddScoped<IDeleteExpenseUseCase, DeleteExpenseUseCase>();
             services.AddScoped<IUpdateExpenseUseCase, UpdateExpenseUseCase>();
             services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
-            services.AddScoped<ISigninUserUseCase, SigninUserUseCase>();
+            services.AddScoped<ISignInUserUseCase, SignInUserUseCase>();
         }
     }
 }

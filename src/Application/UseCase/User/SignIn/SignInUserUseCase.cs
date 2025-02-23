@@ -5,13 +5,13 @@ using Domain.Security.Cryptography;
 using Domain.Tokens;
 using Exception.Exceptions;
 
-namespace Application.UseCase.User.Signin
+namespace Application.UseCase.User.SignIn
 {
-    public class SigninUserUseCase(
+    public class SignInUserUseCase(
         IPasswordEncrypt passwordEncrypt,
         IUserReadOnlyRepository userReadOnlyRepository,
         IAccessTokenGenerator accessTokenGenerator)
-        : ISigninUserUseCase
+        : ISignInUserUseCase
     {
         public async Task<ResponseUserAuthJson> Execute(
             RequestSigninUserJson request)

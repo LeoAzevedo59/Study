@@ -31,7 +31,7 @@ namespace UseCase.Test.User.Create
             UserReadOnlyRepositoryBuilder userReadOnlyRepositoryBuilder = new();
 
             IPasswordEncrypt passwordEncryptBuilder =
-                PasswordEncryptBuilder.Build();
+                new PasswordEncryptBuilder().Build();
 
             if (!string.IsNullOrEmpty(email))
             {

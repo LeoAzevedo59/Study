@@ -4,7 +4,7 @@ using Moq;
 
 namespace CommonTestUtilities.Security.Tokens
 {
-    public class JwtTokenGeneratorBuilder
+    public abstract class JwtTokenGeneratorBuilder
     {
         public static IAccessTokenGenerator Build()
         {

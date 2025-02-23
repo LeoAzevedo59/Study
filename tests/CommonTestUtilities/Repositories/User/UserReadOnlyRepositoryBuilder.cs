@@ -18,5 +18,15 @@ namespace CommonTestUtilities.Repositories.User
             _userReadOnlyRepositoryMock.Setup(userReadOnly =>
                 userReadOnly.Exists(email)).ReturnsAsync(true);
         }
+
+        public UserReadOnlyRepositoryBuilder GetByEmail(
+            Domain.Entities.User user)
+        {
+            _userReadOnlyRepositoryMock.Setup(userReadOnly =>
+                    userReadOnly.GetByEmail(user.Email))
+                .ReturnsAsync(user);
+
+            return this;
+        }
     }
 }

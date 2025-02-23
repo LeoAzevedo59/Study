@@ -1,5 +1,5 @@
 using Application.UseCase.User.Create;
-using Application.UseCase.User.Signin;
+using Application.UseCase.User.SignIn;
 using Communication.Requests.Users;
 using Communication.Responses.ResponseError;
 using Communication.Responses.User;
@@ -33,7 +33,7 @@ namespace Api.Controllers
         [ProducesResponseType(typeof(ResponseErrorJson),
             StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Signin(
-            [FromServices] ISigninUserUseCase useCase,
+            [FromServices] ISignInUserUseCase useCase,
             [FromBody] RequestSigninUserJson request
         )
         {
