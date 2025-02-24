@@ -4,6 +4,7 @@ using Domain.Repositories.User;
 using Domain.Security.Cryptography;
 using Domain.Tokens;
 using Infra.DataAccess;
+using Infra.Extensions;
 using Infra.Repositories;
 using Infra.Security.Cryptography;
 using Infra.Security.Tokens;
@@ -18,9 +19,13 @@ namespace Infra
         public static void AddInfra(this IServiceCollection services,
             IConfiguration configuration)
         {
-            AddDbContext(services, configuration);
             AddRepositories(services);
             AddAuthorization(services, configuration);
+
+            if (!configuration.IsTestIntegrationEnvironment())
+            {
+                AddDbContext(services, configuration);
+            }
         }
 
         private static void AddRepositories(IServiceCollection services)
@@ -59,6 +64,8 @@ namespace Infra
         private static void AddDbContext(IServiceCollection services,
             IConfiguration configuration)
         {
+            string? x = configuration["SIGNIN_KEY"];
+
             string? connectionString =
                 configuration["CONNECTION_STRING"];
 

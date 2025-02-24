@@ -1,6 +1,7 @@
 using Api.Filters;
 using Application;
 using Infra;
+using Infra.Extensions;
 using Infra.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -93,7 +94,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-await MigrateDatabase();
+if (!builder.Configuration.IsTestIntegrationEnvironment())
+{
+    await MigrateDatabase();
+}
+
 
 app.Run();
 
