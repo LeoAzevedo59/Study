@@ -1,5 +1,4 @@
 using Application.UseCase.User.Create;
-using Application.UseCase.User.SignIn;
 using Communication.Requests.Users;
 using Communication.Responses.ResponseError;
 using Communication.Responses.User;
@@ -9,7 +8,7 @@ namespace Api.Controllers
 {
     [Route("api/users")]
     [ApiController]
-    public class UserCreateController : ControllerBase
+    public class UserController : ControllerBase
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseUserAuthJson),
@@ -23,22 +22,6 @@ namespace Api.Controllers
         {
             ResponseUserAuthJson response = await useCase.Execute(request);
             return Created(string.Empty, response);
-        }
-
-        [HttpPost("/api/signin")]
-        [ProducesResponseType(typeof(ResponseUserAuthJson),
-            StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseErrorJson),
-            StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ResponseErrorJson),
-            StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Signin(
-            [FromServices] ISignInUserUseCase useCase,
-            [FromBody] RequestSigninUserJson request
-        )
-        {
-            ResponseUserAuthJson response = await useCase.Execute(request);
-            return Ok(response);
         }
     }
 }
