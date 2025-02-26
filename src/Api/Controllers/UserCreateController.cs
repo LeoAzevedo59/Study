@@ -9,7 +9,7 @@ namespace Api.Controllers
 {
     [Route("api/users")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserCreateController : ControllerBase
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseUserAuthJson),

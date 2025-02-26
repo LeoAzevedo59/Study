@@ -4,9 +4,9 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace Api.Tests.Users.Create
+namespace Api.Tests.Controllers
 {
-    public class CreateUserTest : IClassFixture<CustomWebApplicationFactory>
+    public class UserCreateControllerTest : IClassFixture<CustomWebApplicationFactory>
     {
         private const string EndPoint = "api/users";
 
@@ -15,7 +15,7 @@ namespace Api.Tests.Users.Create
         private readonly RequestCreateUserJson _request =
             RequestCreateUserJsonBuilder.Build();
 
-        public CreateUserTest(CustomWebApplicationFactory webApplicationFactory)
+        public UserCreateControllerTest(CustomWebApplicationFactory webApplicationFactory)
         {
             _httpClient = webApplicationFactory.CreateClient();
         }
