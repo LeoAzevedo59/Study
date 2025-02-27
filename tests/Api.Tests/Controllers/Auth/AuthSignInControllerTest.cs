@@ -5,10 +5,10 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using Xunit.Abstractions;
 
-namespace Api.Tests.Controllers
+namespace Api.Tests.Controllers.Auth
 {
     public class
-        UserSignInControllerTest : IClassFixture<CustomWebApplicationFactory>
+        AuthSignInControllerTest : IClassFixture<CustomWebApplicationFactory>
     {
         private const string EndPoint = "api/auth/sign-in";
 
@@ -19,7 +19,7 @@ namespace Api.Tests.Controllers
         private readonly RequestSigninUserJson _request =
             RequestSignInUserJsonBuilder.Build();
 
-        public UserSignInControllerTest(
+        public AuthSignInControllerTest(
             CustomWebApplicationFactory webApplicationFactory,
             ITestOutputHelper outputHelper)
         {

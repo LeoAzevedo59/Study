@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace Api.Tests.Controllers
+namespace Api.Tests.Controllers.User
 {
     public class UserControllerTest : IClassFixture<CustomWebApplicationFactory>
     {
