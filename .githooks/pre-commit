@@ -1,0 +1,16 @@
+#!/bin/sh
+echo "🔧 Rodando dotnet format antes do commit..."
+dotnet format --verify-no-changes
+if [ $? -ne 0 ]; then
+  echo "❌ O código precisa ser formatado! Execute 'dotnet format' antes de commitar."
+  exit 1
+fi
+
+echo "🧪 Executando testes com dotnet test..."
+dotnet test --no-build --verbosity minimal
+if [ $? -ne 0 ]; then
+  echo "❌ Os testes falharam! Corrija os erros antes de commitar."
+  exit 1
+fi
+
+echo "✅ Commit permitido"

@@ -2,6 +2,24 @@
 
 Repository para estudar backend com foco em utilziar boas praticas e novidades do .NET C#
 
+## Inicio
+
+Clonar o projeto 
+
+```bash
+  git clone git@github.com:LeoAzevedo59/Study.git
+```
+
+- Com o código na sua máquina entre no root do projeto `Study`;
+- Caso esteja utilizando MacOs, digite o comando ``chmod +x setup-hooks.sh`` para dar permissão para o comando `sh` de configuração inicial;
+- Rode o comando para configuração inicial ``sh setup-hooks.sh``
+- Caso aparece a mensagem ``🎉 Configuração concluída com sucesso!``, você já pode usar o projeto.
+- O comando irá verificar se você possui a SDK 8.0 .NET;
+- O comando irá verificar os testes de unidade;
+- O comando irá verificar os testes de integração;
+- O comando irá configurar o ``pre-commit`` do git;
+- O comando irá verificar a estilização do código;
+
 ## Dependências globais
 
 Você precisa ter a SDK instalada em seu computador.
@@ -11,7 +29,7 @@ Você precisa ter a SDK instalada em seu computador.
 Listar todas Sdks disponível em sua máquina:
 
 ```bash
-dotnet --list-sdks
+  dotnet --list-sdks
 ```
 
 Alterar SDK:
@@ -25,18 +43,18 @@ dotnet new globaljson --sdk-version 6.0.412
 
 Rodando todos testes do projeto
 ```bash
-dotnet test
+  dotnet test
 ```
 
 Rodando testes com watch (Auto Reload)
 
 1. Entre no projeto do teste em especifico
 ```bash
-cd tests/Validators.Tests/
+  cd tests/Validators.Tests/
 ```
 2. Comando para rodar os testes
 ```bash
-dotnet watch test
+  dotnet watch test
 ```
 
 Sempre que salvar o arquivo de teste em questão, o mesmo será rodado mostrando se passou ou se tem alguma falha.
@@ -46,12 +64,12 @@ Sempre que salvar o arquivo de teste em questão, o mesmo será rodado mostrando
 
 Usando dotnet run
 ```bash
-dotnet run --project src/Api
+  dotnet run --project src/Api
 ```
 
 Usando dotnet watch run (Auto Reload)
 ```bash
-dotnet watch run --project src/Api
+  dotnet watch run --project src/Api
 ```
 
 ## Documentação para testes
