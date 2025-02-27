@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Application.UseCase.Expense.Update
 {
-    public class
+    internal class
         UpdateExpenseValidator : AbstractValidator<RequestUpdateExpenseJson>
     {
         public UpdateExpenseValidator()

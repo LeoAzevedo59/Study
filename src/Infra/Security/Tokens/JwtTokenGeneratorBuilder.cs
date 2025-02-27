@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Infra.Security.Tokens
 {
-    public class JwtTokenGeneratorBuilder(
+    internal class JwtTokenGeneratorBuilder(
         uint expirationTimeMinutes,
         string signinKey) : IAccessTokenGenerator
     {

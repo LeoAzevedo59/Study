@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.DataAccess
 {
-    public class ApiDbContext(DbContextOptions options) : DbContext(options)
+    internal class ApiDbContext(DbContextOptions options) : DbContext(options)
     {
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<User> Users { get; set; }

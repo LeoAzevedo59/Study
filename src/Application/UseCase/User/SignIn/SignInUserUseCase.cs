@@ -7,7 +7,7 @@ using Exception.Exceptions;
 
 namespace Application.UseCase.User.SignIn
 {
-    public class SignInUserUseCase(
+    internal class SignInUserUseCase(
         IPasswordEncrypt passwordEncrypt,
         IUserReadOnlyRepository userReadOnlyRepository,
         IAccessTokenGenerator accessTokenGenerator)

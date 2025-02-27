@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Application.UseCase.CommonValidator
 {
-    public class EmailValidator<T> : PropertyValidator<T, string>
+    internal class EmailValidator<T> : PropertyValidator<T, string>
     {
         public override string Name => "Email";
 

@@ -6,7 +6,7 @@ using System.Net;
 
 namespace Api.Filters
 {
-    public class ExceptionFilter : IExceptionFilter
+    internal class ExceptionFilter : IExceptionFilter
     {
         public void OnException(ExceptionContext context)
         {

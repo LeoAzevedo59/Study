@@ -3,7 +3,7 @@ using FluentValidation.Validators;
 
 namespace Application.UseCase.CommonValidator
 {
-    public class PasswordValidator<T> : PropertyValidator<T, string>
+    internal class PasswordValidator<T> : PropertyValidator<T, string>
     {
         public override string Name => "PasswordValidator";
 

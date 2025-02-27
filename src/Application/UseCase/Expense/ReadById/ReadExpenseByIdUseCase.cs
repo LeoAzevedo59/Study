@@ -5,7 +5,7 @@ using Exception.Exceptions;
 
 namespace Application.useCase.Expense.ReadById
 {
-    public class ReadExpenseByIdUseCase(
+    internal class ReadExpenseByIdUseCase(
         IMapper mapper,
         IExpenseReadOnlyRepository repository
     ) : IReadExpenseByIdUseCase

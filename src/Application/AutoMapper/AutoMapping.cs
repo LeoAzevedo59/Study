@@ -6,7 +6,7 @@ using Domain.Entities;
 
 namespace Application.AutoMapper
 {
-    public class AutoMapping : Profile
+    internal class AutoMapping : Profile
     {
         public AutoMapping()
         {

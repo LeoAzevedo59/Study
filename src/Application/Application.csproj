@@ -24,4 +24,16 @@
         </Reference>
     </ItemGroup>
 
+    <!--    <ItemGroup>-->
+    <!--        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalVisibleTo">-->
+    <!--            <_Parameters1>$(AssemblyName).Tests</_Parameters1>-->
+    <!--        </AssemblyAttribute>-->
+    <!--    </ItemGroup>-->
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="CommonTestUtilities"/>
+        <InternalsVisibleTo Include="UseCase.Tests"/>
+        <InternalsVisibleTo Include="Validators.Tests"/>
+    </ItemGroup>
+
 </Project>

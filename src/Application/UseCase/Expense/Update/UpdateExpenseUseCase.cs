@@ -7,7 +7,7 @@ using FluentValidation.Results;
 
 namespace Application.UseCase.Expense.Update
 {
-    public class UpdateExpenseUseCase(
+    internal class UpdateExpenseUseCase(
         IMapper mapper,
         IExpenseUpdateOnlyRepository expenseUpdateOnlyRepository,
         IUnityOfWork unityOfWork) : IUpdateExpenseUseCase

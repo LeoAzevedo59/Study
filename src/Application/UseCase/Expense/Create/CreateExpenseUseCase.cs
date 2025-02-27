@@ -9,7 +9,7 @@ using FluentValidation.Results;
 
 namespace Application.UseCase.Expense.Create
 {
-    public class CreateExpenseUseCase(
+    internal class CreateExpenseUseCase(
         IExpenseWriteOnlyRepository expenseRepository,
         IMapper mapper,
         IUnityOfWork unityOfWork) : ICreateExpenseUseCase

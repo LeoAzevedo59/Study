@@ -2,7 +2,7 @@ using Domain.Security.Cryptography;
 
 namespace Infra.Security.Cryptography
 {
-    public class PasswordEncryptBuilder : IPasswordEncrypt
+    internal class PasswordEncryptBuilder : IPasswordEncrypt
     {
         public string Encrypt(string password)
         {

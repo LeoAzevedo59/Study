@@ -12,7 +12,7 @@ using FluentValidation.Results;
 
 namespace Application.UseCase.User.Create
 {
-    public class CreateUserUseCase(
+    internal class CreateUserUseCase(
         IUserWriteOnlyRepository userWriteOnlyRepository,
         IUserReadOnlyRepository userReadOnlyRepository,
         IPasswordEncrypt passwordEncrypt,

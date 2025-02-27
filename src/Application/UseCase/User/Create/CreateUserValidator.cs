@@ -4,7 +4,8 @@ using FluentValidation;
 
 namespace Application.UseCase.User.Create
 {
-    public class CreateUserValidator : AbstractValidator<RequestCreateUserJson>
+    internal class
+        CreateUserValidator : AbstractValidator<RequestCreateUserJson>
     {
         public CreateUserValidator()
         {

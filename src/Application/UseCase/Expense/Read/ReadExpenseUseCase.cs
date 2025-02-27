@@ -4,7 +4,7 @@ using Domain.Repositories.Expenses;
 
 namespace Application.useCase.Expense.Read
 {
-    public class ReadExpenseUseCase(
+    internal class ReadExpenseUseCase(
         IMapper mapper,
         IExpenseReadOnlyRepository expenseRepository
     ) : IReadExpenseUseCase

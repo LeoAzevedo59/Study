@@ -4,7 +4,7 @@ using Exception.Exceptions;
 
 namespace Application.UseCase.Expense.Delete
 {
-    public class DeleteExpenseUseCase(
+    internal class DeleteExpenseUseCase(
         IExpenseWriteOnlyRepository expenseWriteOnlyRepository,
         IUnityOfWork unityOfWork
     ) : IDeleteExpenseUseCase
