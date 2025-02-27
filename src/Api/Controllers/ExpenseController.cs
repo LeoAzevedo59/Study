@@ -6,13 +6,14 @@ using Application.UseCase.Expense.Update;
 using Communication.Requests.Expense;
 using Communication.Responses.Expense;
 using Communication.Responses.ResponseError;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [Route("api/expenses")]
     [ApiController]
-    // [Authorize]
+    [Authorize]
     public class ExpenseController : ControllerBase
     {
         [HttpPost]
