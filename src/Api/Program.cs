@@ -1,9 +1,11 @@
 using Api.Extensions;
 using Api.Filters;
+using Api.Policy;
 using Application;
 using Infra;
 using Infra.Extensions;
 using Infra.Migrations;
+using Microsoft.AspNetCore.Mvc;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,12 @@ builder.Services.AddInfra(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddAuth(builder.Configuration);
 builder.Services.AddSwagger();
+
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy =
+        new JsonSnakeCaseNamingPolicy();
+});
 
 WebApplication app = builder.Build();
 
