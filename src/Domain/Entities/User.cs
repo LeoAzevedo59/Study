@@ -14,10 +14,12 @@ namespace Domain.Entities
             Role = RoleType.ADMIN;
         }
 
+        private User() { }
+
         public Guid Id { get; init; }
-        public string Name { get; init; }
-        public string Email { get; init; }
-        public string Password { get; init; }
-        public string Role { get; init; }
+        public string Name { get; private set; }
+        public string Email { get; private set; }
+        public string Password { get; private set; }
+        public string Role { get; private set; }
     }
 }

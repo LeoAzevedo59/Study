@@ -1,4 +1,3 @@
-using Application.AutoMapper;
 using Application.useCase.Expense.Read;
 using Application.useCase.Expense.ReadById;
 using Application.UseCase.Expense.Create;
@@ -14,13 +13,7 @@ namespace Application
     {
         public static void AddApplication(this IServiceCollection services)
         {
-            AddAutoMapper(services);
             AddUseCase(services);
-        }
-
-        private static void AddAutoMapper(IServiceCollection services)
-        {
-            services.AddAutoMapper(typeof(AutoMapping));
         }
 
         private static void AddUseCase(IServiceCollection services)

@@ -1,4 +1,3 @@
-using AutoMapper;
 using Communication.Responses.Expense;
 using Domain.Repositories.Expenses;
 using Exception.Exceptions;
@@ -6,7 +5,6 @@ using Exception.Exceptions;
 namespace Application.useCase.Expense.ReadById
 {
     internal class ReadExpenseByIdUseCase(
-        IMapper mapper,
         IExpenseReadOnlyRepository repository
     ) : IReadExpenseByIdUseCase
     {
@@ -21,8 +19,9 @@ namespace Application.useCase.Expense.ReadById
                     "Valide o identificador da despesa.");
             }
 
-            ResponseReadExpenseJson? response =
-                mapper.Map<ResponseReadExpenseJson>(result);
+            ResponseReadExpenseJson response = new(result.Id, result.Title,
+                result.Description, result.Amount, result.MovementAt,
+                result.Payment);
 
             return response;
         }

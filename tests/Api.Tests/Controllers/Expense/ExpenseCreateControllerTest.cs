@@ -31,12 +31,11 @@ namespace Api.Tests.Controllers.Expense
         public async Task CreateExpense_Success_ValidFields()
         {
             // Arrange
-
             _httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", _token);
 
             // Act
-            HttpResponseMessage? result =
+            HttpResponseMessage result =
                 await _httpClient.PostAsJsonAsync(EndPoint, _request);
 
             _outputHelper.WriteLine(await result.Content.ReadAsStringAsync());

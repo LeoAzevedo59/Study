@@ -13,8 +13,10 @@ namespace Infra.DataAccess
             modelBuilder.ApplySnakeCaseNames();
 
             modelBuilder.Entity<Expense>()
-                .Property(u => u.Payment)
-                .HasConversion<string>();
+                .HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired();
 
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)

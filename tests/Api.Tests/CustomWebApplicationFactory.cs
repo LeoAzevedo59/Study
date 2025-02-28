@@ -12,7 +12,7 @@ namespace Api.Tests
     public class
         CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
-        private string _token;
+        private string _token = string.Empty;
         private User _user;
 
         public string GetEmail()

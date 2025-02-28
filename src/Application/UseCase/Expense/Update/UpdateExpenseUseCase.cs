@@ -1,4 +1,3 @@
-using AutoMapper;
 using Communication.Requests.Expense;
 using Domain.Repositories;
 using Domain.Repositories.Expenses;
@@ -8,7 +7,6 @@ using FluentValidation.Results;
 namespace Application.UseCase.Expense.Update
 {
     internal class UpdateExpenseUseCase(
-        IMapper mapper,
         IExpenseUpdateOnlyRepository expenseUpdateOnlyRepository,
         IUnityOfWork unityOfWork) : IUpdateExpenseUseCase
     {
@@ -17,17 +15,20 @@ namespace Application.UseCase.Expense.Update
         {
             Validate(request);
 
-            Domain.Entities.Expense? expense =
+            Domain.Entities.Expense? expenseOld =
                 await expenseUpdateOnlyRepository.GetById(expenseId);
 
-            if (expense is null)
+            if (expenseOld is null)
             {
                 throw new NotFoundException("Despesa não encontrada.",
                     "Valide o identificador da despesa.");
             }
 
-            Domain.Entities.Expense? entity = mapper.Map(request, expense);
-            expenseUpdateOnlyRepository.Update(entity);
+            Domain.Entities.Expense? entityToUpdate =
+                Domain.Entities.Expense.Update(expenseOld, request.Title,
+                    request.Description, request.Amount, request.MovementAt);
+
+            expenseUpdateOnlyRepository.Update(entityToUpdate);
 
             await unityOfWork.Commit();
         }

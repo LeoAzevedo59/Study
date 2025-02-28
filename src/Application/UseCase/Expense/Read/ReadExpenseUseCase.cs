@@ -1,21 +1,22 @@
-using AutoMapper;
 using Communication.Responses.Expense;
 using Domain.Repositories.Expenses;
 
 namespace Application.useCase.Expense.Read
 {
     internal class ReadExpenseUseCase(
-        IMapper mapper,
         IExpenseReadOnlyRepository expenseRepository
     ) : IReadExpenseUseCase
     {
         public async Task<List<ResponseReadExpensesJson>> Execute()
         {
             List<Domain.Entities.Expense>
-                result = await expenseRepository.Get();
+                results = await expenseRepository.Get();
 
-            List<ResponseReadExpensesJson>? response =
-                mapper.Map<List<ResponseReadExpensesJson>>(result);
+            List<ResponseReadExpensesJson> response =
+                results.Select(expense =>
+                    new ResponseReadExpensesJson(expense.Id, expense.Title,
+                        expense.Description, expense.Amount)).ToList();
+
             return response;
         }
     }
