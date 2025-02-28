@@ -1,13 +1,6 @@
-using System.Text.Json.Serialization;
-
 namespace Communication.Requests.Users
 {
-    public class RequestSigninUserJson
-    {
-        [JsonPropertyName("email")]
-        public string Email { get; set; } = string.Empty;
-
-        [JsonPropertyName("password")]
-        public string Password { get; set; } = string.Empty;
-    }
+    public record RequestSigninUserJson(
+        string Email,
+        string Password);
 }

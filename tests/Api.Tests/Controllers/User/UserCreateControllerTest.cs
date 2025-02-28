@@ -48,12 +48,14 @@ namespace Api.Tests.Controllers.User
         public async Task UserCreate_Fails_EmptyName()
         {
             // ACT
-            _request.Name = "test-com-mais-de-32-caracteres-error";
-            _request.Email = "test-gmail.com";
-            _request.Password = string.Empty;
+            RequestCreateUserJson request =
+                new("test-com-mais-de-32-caracteres-error",
+                    "test-gmail.com",
+                    string.Empty
+                );
 
             HttpResponseMessage result =
-                await _httpClient.PostAsJsonAsync(EndPoint, _request);
+                await _httpClient.PostAsJsonAsync(EndPoint, request);
 
             // ASSERT
             string bodyResponse =

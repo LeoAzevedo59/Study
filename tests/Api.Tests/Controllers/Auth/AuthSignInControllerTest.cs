@@ -5,6 +5,8 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using Xunit.Abstractions;
 
+// ReSharper disable All
+
 namespace Api.Tests.Controllers.Auth
 {
     public class
@@ -15,9 +17,6 @@ namespace Api.Tests.Controllers.Auth
         private readonly string _email;
         private readonly HttpClient _httpClient;
         private readonly ITestOutputHelper _outputHelper;
-
-        private readonly RequestSigninUserJson _request =
-            RequestSignInUserJsonBuilder.Build();
 
         public AuthSignInControllerTest(
             CustomWebApplicationFactory webApplicationFactory,
@@ -32,11 +31,12 @@ namespace Api.Tests.Controllers.Auth
         public async Task UserSignIn_Success_ValidFields()
         {
             // Arrange
-            _request.Email = _email;
+            RequestSigninUserJson request =
+                RequestSignInUserJsonBuilder.BuildWithEmail(_email);
 
             // Act
             HttpResponseMessage result =
-                await _httpClient.PostAsJsonAsync(EndPoint, _request);
+                await _httpClient.PostAsJsonAsync(EndPoint, request);
 
 
             // Assert
@@ -58,12 +58,13 @@ namespace Api.Tests.Controllers.Auth
         public async Task UserSignIn_Failed_EmailEmpty()
         {
             // Arrange
-            _request.Email = string.Empty;
+            RequestSigninUserJson request =
+                RequestSignInUserJsonBuilder.BuildWithEmail(string.Empty);
 
             // Act
 
             HttpResponseMessage result =
-                await _httpClient.PostAsJsonAsync(EndPoint, _request);
+                await _httpClient.PostAsJsonAsync(EndPoint, request);
 
             _outputHelper.WriteLine(await result.Content.ReadAsStringAsync());
 
@@ -107,13 +108,16 @@ namespace Api.Tests.Controllers.Auth
         public async Task UserSignIn_Failed_PasswordEmpty()
         {
             // Arrange
-            _request.Email = _email;
-            _request.Password = string.Empty;
+
+            RequestSigninUserJson request =
+                new(_email,
+                    string.Empty
+                );
 
             // Act
 
             HttpResponseMessage result =
-                await _httpClient.PostAsJsonAsync(EndPoint, _request);
+                await _httpClient.PostAsJsonAsync(EndPoint, request);
 
             _outputHelper.WriteLine(await result.Content.ReadAsStringAsync());
 
@@ -157,12 +161,14 @@ namespace Api.Tests.Controllers.Auth
         public async Task UserSignIn_Failed_UserNotFound()
         {
             // Arrange
-            _request.Email = "email_diferente@email.com";
+            RequestSigninUserJson request =
+                RequestSignInUserJsonBuilder.BuildWithEmail(
+                    "email_diferente@email.com");
 
             // Act
 
             HttpResponseMessage result =
-                await _httpClient.PostAsJsonAsync(EndPoint, _request);
+                await _httpClient.PostAsJsonAsync(EndPoint, request);
 
             _outputHelper.WriteLine(await result.Content.ReadAsStringAsync());
 
@@ -207,12 +213,14 @@ namespace Api.Tests.Controllers.Auth
         public async Task UserSignIn_Failed_PasswordNotMatch()
         {
             // Arrange
-            _request.Password = "Senha diferente";
+            RequestSigninUserJson request =
+                RequestSignInUserJsonBuilder.BuildWithPassword(
+                    "Senha diferente");
 
             // Act
 
             HttpResponseMessage result =
-                await _httpClient.PostAsJsonAsync(EndPoint, _request);
+                await _httpClient.PostAsJsonAsync(EndPoint, request);
 
             _outputHelper.WriteLine(await result.Content.ReadAsStringAsync());
 

@@ -35,10 +35,8 @@ namespace Application.UseCase.User.Create
             await userWriteOnlyRepository.Add(entity);
             await unityOfWork.Commit();
 
-            return new ResponseUserAuthJson
-            {
-                AccessToken = accessTokenGenerator.Generate(entity)
-            };
+            return new ResponseUserAuthJson(
+                accessTokenGenerator.Generate(entity));
         }
 
         private async Task Validate(RequestCreateUserJson request)

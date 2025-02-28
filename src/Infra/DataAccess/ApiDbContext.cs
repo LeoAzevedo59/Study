@@ -10,6 +10,8 @@ namespace Infra.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplySnakeCaseNames();
+
             modelBuilder.Entity<Expense>()
                 .Property(u => u.Payment)
                 .HasConversion<string>();

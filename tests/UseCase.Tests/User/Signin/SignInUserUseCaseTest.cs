@@ -48,7 +48,7 @@ namespace UseCase.Test.User.Signin
                 CreateUseCase(user, request.Password);
 
             // ACT
-            ResponseUserAuthJson? result = await useCase.Execute(request);
+            ResponseUserAuthJson result = await useCase.Execute(request);
 
             // ASSERT
             Assert.NotNull(result);
@@ -61,8 +61,8 @@ namespace UseCase.Test.User.Signin
         {
             // ARRANGE
             RequestSigninUserJson
-                request = RequestSignInUserJsonBuilder.Build();
-            request.Email = string.Empty;
+                request =
+                    RequestSignInUserJsonBuilder.BuildWithEmail(string.Empty);
 
             Domain.Entities.User user = UserBuild.Build();
 
@@ -88,8 +88,9 @@ namespace UseCase.Test.User.Signin
         {
             // ARRANGE
             RequestSigninUserJson
-                request = RequestSignInUserJsonBuilder.Build();
-            request.Password = string.Empty;
+                request =
+                    RequestSignInUserJsonBuilder
+                        .BuildWithPassword(string.Empty);
 
             Domain.Entities.User user = UserBuild.Build();
 

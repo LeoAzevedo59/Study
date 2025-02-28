@@ -64,8 +64,7 @@ namespace Validators.Tests.User
         {
             CreateUserValidator validator = new();
             RequestCreateUserJson? request =
-                RequestCreateUserJsonBuilder.Build();
-            request.Email = email;
+                RequestCreateUserJsonBuilder.BuildWithEmail(email);
 
             ValidationResult? result = validator.Validate(request);
 
@@ -77,9 +76,8 @@ namespace Validators.Tests.User
         {
             CreateUserValidator validator = new();
             RequestCreateUserJson? request =
-                RequestCreateUserJsonBuilder.Build();
-            request.Email =
-                "leoleoleoleoleoleoleoleoleoleoleoleoleoleoleoleoleoleoleoleoleole@exemple.com";
+                RequestCreateUserJsonBuilder.BuildWithEmail(
+                    "leoleoleoleoleoleoleoleoleoleoleoleoleoleoleoleoleoleoleoleoleole@exemple.com");
 
             ValidationResult? result = validator.Validate(request);
 
@@ -91,9 +89,8 @@ namespace Validators.Tests.User
         {
             CreateUserValidator validator = new();
             RequestCreateUserJson? request =
-                RequestCreateUserJsonBuilder.Build();
-            request.Email =
-                "leo@exempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexemplll.com";
+                RequestCreateUserJsonBuilder.BuildWithEmail(
+                    "leo@exempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexempleexemplll.com");
 
             ValidationResult? result = validator.Validate(request);
 

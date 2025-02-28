@@ -21,10 +21,8 @@ namespace Application.UseCase.User.SignIn
 
             Validate(request, user);
 
-            return new ResponseUserAuthJson
-            {
-                AccessToken = accessTokenGenerator.Generate(user!)
-            };
+            return new ResponseUserAuthJson(
+                accessTokenGenerator.Generate(user!));
         }
 
         private void Validate(RequestSigninUserJson request,

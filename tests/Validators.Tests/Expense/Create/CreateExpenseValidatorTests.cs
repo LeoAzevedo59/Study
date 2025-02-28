@@ -31,8 +31,7 @@ namespace Validators.Tests.Expense.Create
         {
             CreateExpenseValidator validator = new();
             RequestCreateExpenseJson request =
-                RequestCreateExpenseJsonBuilder.Build();
-            request.Title = title;
+                RequestCreateExpenseJsonBuilder.Build(title);
 
             ValidationResult? result = validator.Validate(request);
 
@@ -47,8 +46,7 @@ namespace Validators.Tests.Expense.Create
         {
             CreateExpenseValidator validator = new();
             RequestCreateExpenseJson request =
-                RequestCreateExpenseJsonBuilder.Build();
-            request.Amount = amount;
+                RequestCreateExpenseJsonBuilder.Build(amount);
 
             ValidationResult? result = validator.Validate(request);
 
@@ -62,12 +60,12 @@ namespace Validators.Tests.Expense.Create
             int PROPS_WITH_ERRORS = 4;
 
             CreateExpenseValidator validator = new();
-            RequestCreateExpenseJson request =
-                RequestCreateExpenseJsonBuilder.Build();
-            request.Title = "   ";
-            request.Amount = -1;
-            request.MovementAt = DateTime.UtcNow.AddDays(1);
-            request.PaymentType = (PaymentType)999;
+
+            RequestCreateExpenseJson request = new("   ",
+                "description",
+                -1,
+                DateTime.UtcNow.AddDays(1),
+                (PaymentType)999);
 
             ValidationResult? result = validator.Validate(request);
             int listLenght = result.Errors.Count;

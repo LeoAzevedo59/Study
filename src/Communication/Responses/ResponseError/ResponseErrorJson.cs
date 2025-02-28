@@ -1,5 +1,4 @@
 using System.Net;
-using System.Text.Json.Serialization;
 
 namespace Communication.Responses.ResponseError
 {
@@ -23,13 +22,9 @@ namespace Communication.Responses.ResponseError
             StatusCode = statusCode;
         }
 
-        [JsonPropertyName("name")] public string Name { get; set; }
-
-        [JsonPropertyName("message")] public List<string> Message { get; set; }
-
-        [JsonPropertyName("action")] public string Action { get; set; }
-
-        [JsonPropertyName("status_code")]
-        public HttpStatusCode StatusCode { get; set; }
+        public string Name { get; init; }
+        public List<string> Message { get; init; }
+        public string Action { get; init; }
+        public HttpStatusCode StatusCode { get; init; }
     }
 }

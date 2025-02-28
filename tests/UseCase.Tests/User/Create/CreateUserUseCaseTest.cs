@@ -87,8 +87,7 @@ namespace UseCase.Test.User.Create
         public async Task UserCreate_NameEmpty_Error()
         {
             RequestCreateUserJson
-                request = RequestCreateUserJsonBuilder.Build();
-            request.Name = string.Empty;
+                request = RequestCreateUserJsonBuilder.Build(string.Empty);
 
             CreateUserUseCase useCase = CreateUseCase();
 
