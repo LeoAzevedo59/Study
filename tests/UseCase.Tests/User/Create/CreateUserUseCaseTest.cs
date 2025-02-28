@@ -1,6 +1,4 @@
 using Application.UseCase.User.Create;
-using AutoMapper;
-using CommonTestUtilities.Mapper;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.User;
 using CommonTestUtilities.Requests.User;
@@ -21,8 +19,6 @@ namespace UseCase.Test.User.Create
     {
         private CreateUserUseCase CreateUseCase(string? email = null)
         {
-            IMapper? mapperBuilder = MapperBuilder.Build();
-
             IUnityOfWork unitOfWorkBuilder = UnitOfWorkBuilder.Build();
 
             IUserWriteOnlyRepository userWriteOnlyRepositoryBuilder =
@@ -45,7 +41,6 @@ namespace UseCase.Test.User.Create
                 userReadOnlyRepositoryBuilder.Build(),
                 passwordEncryptBuilder,
                 accessTokenGeneratorBuilder,
-                mapperBuilder,
                 unitOfWorkBuilder);
         }
 

@@ -1,8 +1,6 @@
-using AutoMapper;
 using Communication.Requests.Users;
 using Communication.Responses.User;
 using Communication.Utils;
-using Domain.Enums;
 using Domain.Repositories;
 using Domain.Repositories.User;
 using Domain.Security.Cryptography;
@@ -17,7 +15,6 @@ namespace Application.UseCase.User.Create
         IUserReadOnlyRepository userReadOnlyRepository,
         IPasswordEncrypt passwordEncrypt,
         IAccessTokenGenerator accessTokenGenerator,
-        IMapper mapper,
         IUnityOfWork unityOfWork
     ) : ICreateUserUseCase
     {
@@ -26,11 +23,8 @@ namespace Application.UseCase.User.Create
         {
             await Validate(request);
 
-            Domain.Entities.User? entity =
-                mapper.Map<Domain.Entities.User>(request);
-
-            entity.Role = RoleType.ADMIN;
-            entity.Password = passwordEncrypt.Encrypt(request.Password);
+            Domain.Entities.User entity = new(request.Name, request.Email,
+                passwordEncrypt.Encrypt(request.Password));
 
             await userWriteOnlyRepository.Add(entity);
             await unityOfWork.Commit();

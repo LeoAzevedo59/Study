@@ -118,7 +118,10 @@ namespace UseCase.Test.User.Signin
             RequestSigninUserJson
                 request = RequestSignInUserJsonBuilder.Build();
 
-            Domain.Entities.User user = new();
+            Domain.Entities.User user = new("Usuario não existe",
+                "email_nao_existe@exemple.com",
+                "test123"
+            );
 
             SignInUserUseCase useCase =
                 CreateUseCase(user, request.Password);

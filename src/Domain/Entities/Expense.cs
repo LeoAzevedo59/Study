@@ -4,13 +4,13 @@ namespace Domain.Entities
 {
     public class Expense
     {
-        public Guid Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string? Description { get; set; }
-        public DateTime MovementAt { get; set; }
-        public decimal Amount { get; set; }
-        public PaymentType Payment { get; set; }
-        public Guid UserId { get; set; }
-        public required User User { get; set; }
+        public Guid Id { get; init; }
+        public string Title { get; init; } = string.Empty;
+        public string? Description { get; init; }
+        public DateTime MovementAt { get; init; }
+        public decimal Amount { get; init; }
+        public PaymentType Payment { get; init; }
+        public Guid UserId { get; init; }
+        public required User User { get; init; }
     }
 }
